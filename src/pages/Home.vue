@@ -1,3 +1,6 @@
+<script setup>
+import HomeBanner from "../components/sections/HomeBanner.vue";
+</script>
 <template>
-    <h1>Home Page</h1>
+  <HomeBanner />
 </template>

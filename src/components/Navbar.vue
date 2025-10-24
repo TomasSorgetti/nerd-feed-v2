@@ -17,11 +17,17 @@ const { isScrolled } = useScrollPosition(20);
     >
       <router-link
         to="/"
-        class="flex items-center gap-2 text-xl font-semibold overflow-hidden duration-1000 ease-in-out"
-        :class="isScrolled ? 'w-8' : 'w-50'"
+        class="relative flex items-center pr-5 gap-2 text-xl font-semibold overflow-hidden duration-1000 ease-in-out"
+        :class="isScrolled ? 'w-8' : 'w-auto'"
       >
-        <img :src="Logo" alt="logo de nerd feed" class="w-8 h-auto" />
+        <img :src="Logo" alt="logo de nerd feed" class="w-8 h-auto min-w-8" />
         <span class="whitespace-nowrap">Nerd Feed</span>
+        <div
+          class="absolute right-0 bottom-0 h-5 w-5 flex items-center justify-center bg-primary rounded text-xs text-text-invert"
+          :class="isScrolled && 'hidden'"
+        >
+          v.2
+        </div>
       </router-link>
 
       <ul class="flex items-center gap-8 flex-1 justify-center">
