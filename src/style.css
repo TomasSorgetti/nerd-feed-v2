@@ -44,8 +44,3 @@ h5,
 h6 {
   @apply text-text-heading;
 }
-
-a,
-p {
-  @apply text-text;
-}

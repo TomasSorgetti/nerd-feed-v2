@@ -19,15 +19,15 @@ const routes = [
     component: Home,
   },
   {
-    path: "/login",
+    path: "/auth/login",
     component: Login,
   },
   {
-    path: "/register",
+    path: "/auth/register",
     component: Register,
   },
   {
-    path: "/forgot-password",
+    path: "/auth/forgot-password",
     component: ForgotPassword,
   },
 

@@ -2,6 +2,7 @@
 import { useScrollPosition } from "../composables/useScrollPosition.js";
 import Logo from "../assets/logo.svg";
 import NavLink from "./ui/NavLink.vue";
+import MainButton from "./ui/buttons/MainButton.vue";
 
 const { isScrolled } = useScrollPosition(20);
 </script>
@@ -46,16 +47,20 @@ const { isScrolled } = useScrollPosition(20);
       </ul>
 
       <ul class="flex items-center gap-4">
-        <li>Sign In</li>
+        <li>
+          <router-link to="/auth/login">Sign In</router-link>
+        </li>
         <li
-          class="duration-300 ease-in-out"
+          class="duration-0"
           :class="
             isScrolled
               ? 'opacity-100 visibility-visible'
-              : 'visibility-hidden opacity-0'
+              : 'h-0 w-0 visibility-hidden opacity-0'
           "
         >
-          Sign Up
+          <MainButton to="/auth/register" variant="secondary"
+            >Sign Up</MainButton
+          >
         </li>
       </ul>
     </nav>
