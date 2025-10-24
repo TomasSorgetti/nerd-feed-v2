@@ -1,1 +1,44 @@
 @import "tailwindcss";
+
+@theme {
+  --color-background: #ffffff;
+  --color-background-bis: #fbfaf9;
+
+  --color-primary: #37322f;
+  --color-accent: #e16741;
+
+  --color-text-heading: #37322f;
+  --color-text: #605a57;
+  --color-text-invert: #fbfaf9;
+
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2rem;
+  --font-size-5xl: 2.5rem;
+  --font-size-6xl: 3rem;
+  --font-size-7xl: 3.5rem;
+  --font-size-8xl: 4rem;
+}
+
+.max-w-7xl {
+  max-width: 75rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply text-text-heading;
+}
+
+a,
+p {
+  @apply text-text;
+}
