@@ -17,7 +17,8 @@ import MainButton from "../ui/buttons/MainButton.vue";
     <div class="z-20 text-center pt-10 flex flex-col items-center">
       <Badge>Nerd Feed - For Developers, By Developers</Badge>
       <h1 class="relative text-8xl font-semibold max-w-2xl mt-2">
-        Share your bugs, <span class="text-accent">memes and code tips.</span>
+        Share your bugs,
+        <span class="text-accent animate-pulse">memes and code tips.</span>
       </h1>
       <p class="mt-10 max-w-md">
         Nerd Feed is the social network for programmers: a space to share ideas,

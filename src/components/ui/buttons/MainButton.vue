@@ -5,16 +5,23 @@ const props = defineProps({
   to: { type: [String, Object], default: null },
   dataLabel: { type: String, default: "" },
   variant: { type: String, default: "primary" },
+  size: { type: String, default: "sm" },
   handleClick: { type: Function, default: () => {} },
 });
 
-const commonClasses =
-  "py-2 px-6 font-medium mt-10 rounded-lg cursor-pointer shadow";
+const commonClasses = "font-medium mt-10 rounded-lg cursor-pointer shadow";
 
-const classes = computed(() => {
+const variantClasses = computed(() => {
   return {
     "bg-primary text-text-invert": props.variant === "primary",
     "bg-background text-text": props.variant === "secondary",
+  };
+});
+
+const sizeClasses = computed(() => {
+  return {
+    "px-6 py-2": props.size === "sm",
+    "px-16 py-2": props.size === "lg",
   };
 });
 </script>
@@ -24,7 +31,7 @@ const classes = computed(() => {
     v-if="props.to"
     :to="props.to"
     :aria-label="props.dataLabel"
-    :class="[commonClasses, classes]"
+    :class="[commonClasses, variantClasses, sizeClasses]"
   >
     <slot>Link</slot>
   </router-link>
@@ -34,7 +41,7 @@ const classes = computed(() => {
     type="button"
     @click="props.handleClick"
     :aria-label="props.dataLabel"
-    :class="[commonClasses, classes]"
+    :class="[commonClasses, variantClasses, sizeClasses]"
   >
     <slot>Button</slot>
   </button>
