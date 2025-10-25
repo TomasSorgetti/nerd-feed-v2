@@ -1,10 +1,25 @@
 <script setup>
+import { ref, onMounted, onUnmounted } from "vue";
 import { useScrollPosition } from "../composables/useScrollPosition.js";
+import { useAuth } from "../composables/useAuth.js";
+
 import Logo from "../assets/logo.svg";
 import NavLink from "./ui/NavLink.vue";
 import MainButton from "./ui/buttons/MainButton.vue";
 
 const { isScrolled } = useScrollPosition(20);
+
+const { user, signOut } = useAuth();
+
+const handleLogout = async () => {
+  try {
+    await signOut();
+    localStorage.removeItem("isAuthenticated");
+    $router.push("/auth/login");
+  } catch (error) {
+    $router.push("/500");
+  }
+};
 </script>
 
 <template>
@@ -33,35 +48,49 @@ const { isScrolled } = useScrollPosition(20);
 
       <ul class="flex items-center gap-8 flex-1 justify-center">
         <li>
-          <NavLink>Home</NavLink>
+          <NavLink to="/">Home</NavLink>
         </li>
         <li>
-          <NavLink>Features</NavLink>
+          <NavLink to="/features">Features</NavLink>
         </li>
         <li>
-          <NavLink>Blog</NavLink>
+          <NavLink to="/blog">Blog</NavLink>
         </li>
         <li>
-          <NavLink>Demo</NavLink>
+          <NavLink to="/demo">Demo</NavLink>
         </li>
       </ul>
 
       <ul class="flex items-center gap-4">
-        <li>
-          <router-link to="/auth/login">Sign In</router-link>
-        </li>
-        <li
-          class="duration-0"
-          :class="
-            isScrolled
-              ? 'opacity-100 visibility-visible'
-              : 'h-0 w-0 visibility-hidden opacity-0'
-          "
-        >
-          <MainButton to="/auth/register" variant="secondary"
-            >Sign Up</MainButton
+        <template v-if="!user || !user?.id">
+          <li>
+            <router-link to="/auth/login" class="hover:underline"
+              >Sign In</router-link
+            >
+          </li>
+          <li
+            class="duration-0"
+            :class="
+              isScrolled
+                ? 'opacity-100 visibility-visible'
+                : 'h-0 w-0 visibility-hidden opacity-0'
+            "
           >
-        </li>
+            <MainButton to="/auth/register" variant="secondary">
+              Sign Up
+            </MainButton>
+          </li>
+        </template>
+
+        <template v-else>
+          <li>
+            <!-- <AuthDropdown :user="user" /> -->
+            {{ user?.email }}
+            <button @click="handleLogout" class="text-red-400 cursor-pointer">
+              Logout
+            </button>
+          </li>
+        </template>
       </ul>
     </nav>
   </header>
