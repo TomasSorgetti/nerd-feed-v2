@@ -1,5 +1,6 @@
 <script setup>
 import Background from "../../assets/background.svg";
+import Video from "../../assets/video.png";
 import Badge from "../ui/Badge.vue";
 import MainButton from "../ui/buttons/MainButton.vue";
 </script>
@@ -28,7 +29,13 @@ import MainButton from "../ui/buttons/MainButton.vue";
     </div>
 
     <div
-      class="relative z-10 w-full bg-gray-400 min-h-[600px] mt-20 rounded-2xl"
-    ></div>
+      class="relative z-10 w-full min-h-[600px] mt-20 rounded-2xl overflow-hidden shadow-xl border border-secondary/20"
+    >
+      <img
+        :src="Video"
+        alt="nerd feed video"
+        class="w-full h-full object-cover"
+      />
+    </div>
   </section>
 </template>

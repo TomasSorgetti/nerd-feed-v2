@@ -5,6 +5,8 @@ import { useAuth } from "../../composables/useAuth.js";
 
 import Logo from "../../assets/logo.svg";
 import { ArrowRight, ArrowLeft } from "lucide-vue-next";
+import CustomInput from "../../components/ui/forms/CustomInput.vue";
+import FormButton from "../../components/ui/buttons/FormButton.vue";
 
 const { signIn } = useAuth();
 const router = useRouter();
@@ -18,20 +20,27 @@ const form = ref({
 const step = ref(1);
 const loading = ref(false);
 const error = ref("");
+const fieldError = ref("");
 
 function nextStep() {
-  if (!form.value.email.trim()) return;
+  if (!form.value.email.trim()) {
+    fieldError.value = "Email is required.";
+    return;
+  }
+  fieldError.value = "";
   step.value = 2;
   error.value = "";
 }
 
 function prevStep() {
   step.value = 1;
+  fieldError.value = "";
   error.value = "";
 }
 
 async function handleSubmit() {
   error.value = "";
+  fieldError.value = "";
   loading.value = true;
 
   try {
@@ -57,7 +66,6 @@ function handleKeydown(e) {
   <main
     class="flex flex-col items-center justify-top min-h-screen bg-background-bis"
   >
-    <!-- Logo -->
     <div class="pt-40 pb-20 flex items-center justify-center">
       <img
         :src="Logo"
@@ -68,49 +76,41 @@ function handleKeydown(e) {
       />
     </div>
 
-    <!-- Card -->
     <div
       class="w-full max-w-md bg-background shadow-2xl border border-secondary/30 rounded-2xl flex flex-col justify-between text-center"
     >
       <div class="p-8">
-        <h1 class="font-semibold text-text-heading text-xl mb-2">
+        <h1 class="font-semibold text-text-heading text-xl mb-4">
           Login to Nerd Feed
         </h1>
 
-        <!-- Error -->
         <p v-if="error" class="text-red-500 text-sm font-medium mb-4 text-left">
           {{ error }}
         </p>
 
-        <!-- Step 1: Email -->
         <form
           v-if="step === 1"
-          class="flex flex-col items-start gap-2 w-full"
+          class="flex flex-col items-start gap-3 w-full"
           @submit.prevent="nextStep"
           @keydown="handleKeydown"
         >
-          <div class="w-full mt-4">
-            <label for="email" class="sr-only">Email</label>
-            <input
-              v-model="form.email"
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Enter email address..."
-              autocomplete="username"
-              required
-              class="w-full h-11 rounded-lg p-2 border border-secondary/30 focus:outline-none focus:border-primary"
-            />
-          </div>
+          <CustomInput
+            id="email"
+            label="Email address"
+            type="email"
+            v-model="form.email"
+            :error="fieldError"
+            placeholder="Enter email address..."
+            autocomplete="email"
+            required
+            hiddenLabel
+          />
 
-          <button
-            type="submit"
-            class="w-full mt-4 h-11 bg-primary text-text-invert font-medium rounded-lg cursor-pointer shadow hover:bg-secondary duration-300 active:bg-secondary/50"
-          >
+          <FormButton type="submit" :loading="loading" loadingText="Next">
             Next
-          </button>
+          </FormButton>
 
-          <small class="text-text w-full py-4">or</small>
+          <small class="text-text w-full py-2">or</small>
 
           <button
             type="button"
@@ -120,10 +120,9 @@ function handleKeydown(e) {
           </button>
         </form>
 
-        <!-- Step 2: Password -->
         <form
           v-else
-          class="flex flex-col items-start gap-2 w-full"
+          class="flex flex-col items-start gap-3 w-full"
           @submit.prevent="handleSubmit"
           @keydown="handleKeydown"
         >
@@ -131,37 +130,34 @@ function handleKeydown(e) {
             <button
               type="button"
               @click="prevStep"
-              class="text-text text-sm flex items-center gap-1 hover:text-text-heading duration-200"
+              class="text-text text-sm flex items-center gap-1 hover:text-text-heading duration-200 cursor-pointer font-medium"
             >
               <ArrowLeft :size="14" /> Back
             </button>
           </div>
 
-          <div class="w-full mt-2">
-            <label for="password" class="sr-only">Password</label>
-            <input
-              v-model="form.password"
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Enter your password..."
-              autocomplete="current-password"
-              required
-              class="w-full h-11 rounded-lg p-2 border border-secondary/30 focus:outline-none focus:border-primary"
-            />
-          </div>
+          <CustomInput
+            id="password"
+            label="Password"
+            type="password"
+            v-model="form.password"
+            :error="error"
+            placeholder="Enter your password..."
+            autocomplete="current-password"
+            required
+            hiddenLabel
+          />
 
-          <button
+          <FormButton
             type="submit"
-            :disabled="loading"
-            class="w-full mt-4 h-11 bg-primary text-text-invert font-medium rounded-lg cursor-pointer shadow hover:bg-secondary duration-300 active:bg-secondary/50 disabled:opacity-60"
+            :loading="loading"
+            loadingText="Signing in..."
           >
-            {{ loading ? "Signing in..." : "Login" }}
-          </button>
+            Login
+          </FormButton>
         </form>
       </div>
 
-      <!-- Footer -->
       <p
         class="flex items-center justify-center gap-4 p-4 border-t border-secondary/30 text-text"
       >

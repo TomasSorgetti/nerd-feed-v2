@@ -1,4 +1,3 @@
-// src/presentation/composables/useAuth.js
 import { ref, onMounted, onUnmounted } from "vue";
 import { AuthService } from "../../application/auth/AuthService.js";
 
@@ -17,6 +16,11 @@ export function useAuth() {
     if (unsubscribe) unsubscribe();
   });
 
+  /**
+   * Important
+   * Bind lo que hace es que cuando un componente llame a uno de los metodos,
+   * el 'this' dentro de ese método siga apuntando a la instancia de authService y no se pierda
+   */
   return {
     user,
     signIn: authService.signIn.bind(authService),

@@ -5,6 +5,10 @@ import { signInUser } from "./usecases/signInUser.js";
 import { signUpUser } from "./usecases/signUpUser.js";
 import { signOutUser } from "./usecases/signOutUser.js";
 
+/**
+ *  Auth service funciona como una especie de intermediario que inyecta las dependencias de los usecases
+ *  y deja los metodos servidos para la interfaz
+ */
 export class AuthService {
   constructor() {
     this.authRepo = new SupabaseAuthRepository();
