@@ -6,6 +6,8 @@ import Logo from "../assets/logo.svg";
 import NavLink from "./ui/NavLink.vue";
 import MainButton from "./ui/buttons/MainButton.vue";
 import AccountDropdown from "./ui/AccountDropdown.vue";
+import { Bell } from "lucide-vue-next";
+import { Search } from "lucide-vue-next";
 
 const { isScrolled } = useScrollPosition(20);
 
@@ -50,14 +52,22 @@ const handleLogout = async () => {
         <li>
           <NavLink to="/">Home</NavLink>
         </li>
-        <li>
-          <NavLink to="/features">Features</NavLink>
+        <li class="cursor-not-allowed">
+          Features
+          <!-- <NavLink to="/features">Features</NavLink> -->
         </li>
-        <li>
-          <NavLink to="/blog">Blog</NavLink>
+        <li class="cursor-not-allowed">
+          Blog
+          <!-- <NavLink to="/blog">Blog</NavLink> -->
         </li>
-        <li>
-          <NavLink to="/demo">Demo</NavLink>
+        <li class="cursor-not-allowed">
+          Demo
+          <!-- <NavLink to="/demo">Demo</NavLink> -->
+        </li>
+        <li v-if="user">
+          <router-link to="/feed" class="text-accent font-medium">
+            Feed
+          </router-link>
         </li>
       </ul>
 
@@ -83,6 +93,16 @@ const handleLogout = async () => {
         </template>
 
         <template v-else>
+          <li class="flex items-center">
+            <button>
+              <Search class="w-6 h-6 text-text cursor-not-allowed" />
+            </button>
+          </li>
+          <li class="flex items-center">
+            <button>
+              <Bell class="w-6 h-6 text-text cursor-not-allowed" />
+            </button>
+          </li>
           <li>
             <AccountDropdown
               :user="user"

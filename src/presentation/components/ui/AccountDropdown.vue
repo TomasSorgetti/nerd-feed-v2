@@ -78,7 +78,7 @@ const handleSelect = (action) => {
     >
       <ul
         v-if="isOpen"
-        class="absolute right-0 mt-2 w-44 bg-background border border-border rounded-lg shadow-lg z-50 p-1"
+        class="absolute right-0 mt-2 w-44 bg-background border border-secondary/15 rounded-lg shadow-xl z-50 p-1"
         role="menu"
         tabindex="-1"
       >
