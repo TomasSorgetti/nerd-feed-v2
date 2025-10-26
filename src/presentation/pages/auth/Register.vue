@@ -7,6 +7,7 @@ import Logo from "../../assets/logo.svg";
 import { ArrowRight, ArrowLeft } from "lucide-vue-next";
 import CustomInput from "../../components/ui/forms/CustomInput.vue";
 import FormButton from "../../components/ui/buttons/FormButton.vue";
+import GoogleButton from "../../components/ui/buttons/GoogleButton.vue";
 
 const { signUp, emailExists } = useAuth();
 const router = useRouter();
@@ -172,12 +173,7 @@ function handleKeydown(e) {
 
           <small class="text-text w-full py-2">or</small>
 
-          <button
-            type="button"
-            class="w-full h-11 bg-background border border-secondary/30 rounded-lg text-text hover:bg-secondary/10 duration-200"
-          >
-            Continue with Google
-          </button>
+          <GoogleButton>Continue with Google</GoogleButton>
         </form>
 
         <form
@@ -271,5 +267,9 @@ function handleKeydown(e) {
         </router-link>
       </p>
     </div>
+
+    <small class="mt-20 text-text text-sm text-center max-w-2xs">
+      By signing up, you agree to our Terms of Service and Privacy Policy
+    </small>
   </main>
 </template>
