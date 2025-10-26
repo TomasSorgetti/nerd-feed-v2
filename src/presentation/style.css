@@ -6,6 +6,7 @@
 
   --color-primary: #37322f;
   --color-secondary: #605a57;
+  --color-tertiary: #201e1d;
   --color-accent: #e16741;
 
   --color-text-heading: #37322f;
@@ -32,17 +33,12 @@
 .rounded-5xl {
   border-radius: 2.5rem;
 }
+.rounded-t-5xl {
+  border-top-left-radius: 2.5rem;
+  border-top-right-radius: 2.5rem;
+}
 .rounded-lg {
   border-radius: 0.625rem;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  @apply text-text-heading;
 }
 
 input:-webkit-autofill,
