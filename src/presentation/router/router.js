@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { isLoading } from "../stores/loading";
+
 import Home from "../pages/Home.vue";
 import Login from "../pages/auth/Login.vue";
 import Register from "../pages/auth/Register.vue";
@@ -63,6 +65,18 @@ const routes = [
 const router = createRouter({
   routes,
   history: createWebHistory(),
+});
+
+router.beforeEach(async (to, from, next) => {
+  isLoading.value = true;
+
+  await new Promise((resolve) => setTimeout(resolve, 1500));
+
+  next();
+});
+
+router.afterEach(() => {
+  isLoading.value = false;
 });
 
 export default router;
