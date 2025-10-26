@@ -8,18 +8,21 @@ import MainButton from "./ui/buttons/MainButton.vue";
 import AccountDropdown from "./ui/AccountDropdown.vue";
 import { Bell } from "lucide-vue-next";
 import { Search } from "lucide-vue-next";
+import { useRouter } from "vue-router";
 
 const { isScrolled } = useScrollPosition(20);
 
 const { user, signOut } = useAuth();
 
+const router = useRouter();
+
 const handleLogout = async () => {
   try {
     await signOut();
     localStorage.removeItem("isAuthenticated");
-    $router.push("/auth/login");
+    router.push("/auth/login");
   } catch (error) {
-    $router.push("/500");
+    router.push("/500");
   }
 };
 </script>

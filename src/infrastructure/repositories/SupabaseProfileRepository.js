@@ -1,8 +1,7 @@
 import { supabase } from "../supabase/client.js";
 import { Profile } from "../../domain/entities/Profile.js";
-import { ProfileRepository } from "../../domain/repositories/ProfileRepository.js";
 
-export class SupabaseProfileRepository extends ProfileRepository {
+export class SupabaseProfileRepository {
   async createProfile({ id, username, email, tag, avatar }) {
     const { error } = await supabase
       .from("profile")

@@ -1,5 +1,5 @@
-import { SupabaseAuthRepository } from "../../infrastructure/auth/SupabaseAuthRepository.js";
-import { SupabaseProfileRepository } from "../../infrastructure/auth/SupabaseProfileRepository.js";
+import { SupabaseAuthRepository } from "../../infrastructure/repositories/SupabaseAuthRepository.js";
+import { SupabaseProfileRepository } from "../../infrastructure/repositories/SupabaseProfileRepository.js";
 import { LocalStorageUserStore } from "../../infrastructure/storage/LocalStorageUserStore.js";
 import { signInUser } from "./usecases/signInUser.js";
 import { signUpUser } from "./usecases/signUpUser.js";

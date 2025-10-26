@@ -70,7 +70,7 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
   isLoading.value = true;
 
-  await new Promise((resolve) => setTimeout(resolve, 1500));
+  await new Promise((resolve) => setTimeout(resolve, 1200));
 
   next();
 });
