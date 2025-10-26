@@ -25,6 +25,7 @@ export function useAuth() {
     user,
     signIn: authService.signIn.bind(authService),
     signUp: authService.signUp.bind(authService),
+    emailExists: authService.emailExists.bind(authService),
     signOut: authService.signOut.bind(authService),
   };
 }

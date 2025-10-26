@@ -4,7 +4,7 @@ export async function signUpUser(
 ) {
   const user = await authRepo.signUp(email, password);
 
-  await profileRepo.createProfile({ id: user.id, username });
+  await profileRepo.createProfile({ id: user.id, username, email });
 
   const profile = await profileRepo.getProfileById(user.id);
 

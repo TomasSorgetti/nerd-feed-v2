@@ -4,6 +4,7 @@ import { LocalStorageUserStore } from "../../infrastructure/storage/LocalStorage
 import { signInUser } from "./usecases/signInUser.js";
 import { signUpUser } from "./usecases/signUpUser.js";
 import { signOutUser } from "./usecases/signOutUser.js";
+import { emailExists } from "./usecases/emailExists.js";
 
 /**
  *  Auth service funciona como una especie de intermediario que inyecta las dependencias de los usecases
@@ -44,6 +45,12 @@ export class AuthService {
         userStore: this.userStore,
       }
     );
+  }
+
+  async emailExists(email) {
+    return await emailExists(email, {
+      profileRepo: this.profileRepo,
+    });
   }
 
   async signOut() {
