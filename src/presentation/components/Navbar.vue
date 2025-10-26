@@ -1,12 +1,11 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from "vue";
 import { useScrollPosition } from "../composables/useScrollPosition.js";
 import { useAuth } from "../composables/useAuth.js";
 
 import Logo from "../assets/logo.svg";
 import NavLink from "./ui/NavLink.vue";
 import MainButton from "./ui/buttons/MainButton.vue";
-import Avatar from "./ui/Avatar.vue";
+import AccountDropdown from "./ui/AccountDropdown.vue";
 
 const { isScrolled } = useScrollPosition(20);
 
@@ -85,17 +84,11 @@ const handleLogout = async () => {
 
         <template v-else>
           <li>
-            <!-- <AuthDropdown :user="user" /> -->
-            <div class="flex items-center gap-2">
-              <Avatar
-                :src="user?.profile.avatar || '/default-avatar.png'"
-                size="sm"
-              />
-              {{ user?.profile.username }}
-            </div>
-            <!-- <button @click="handleLogout" class="text-red-400 cursor-pointer">
-              Logout
-            </button> -->
+            <AccountDropdown
+              :user="user"
+              :handleLogout="handleLogout"
+              class="ml-auto"
+            />
           </li>
         </template>
       </ul>
