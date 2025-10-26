@@ -15,7 +15,7 @@ import MainButton from "../ui/buttons/MainButton.vue";
       class="absolute top-0 left-0 w-full select-none pointer-events-none"
     />
 
-    <div class="z-20 text-center pt-10 flex flex-col items-center">
+    <div class="relative z-20 text-center pt-10 flex flex-col items-center">
       <Badge>Nerd Feed - For Developers, By Developers</Badge>
       <h1 class="relative text-8xl font-semibold max-w-2xl mt-2">
         Share your bugs,
