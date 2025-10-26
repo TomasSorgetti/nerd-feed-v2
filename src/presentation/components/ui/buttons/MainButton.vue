@@ -9,12 +9,15 @@ const props = defineProps({
   handleClick: { type: Function, default: () => {} },
 });
 
-const commonClasses = "font-medium mt-10 rounded-lg cursor-pointer shadow";
+const commonClasses =
+  "relative z-10 font-medium mt-10 rounded-lg cursor-pointer shadow";
 
 const variantClasses = computed(() => {
   return {
-    "bg-primary text-text-invert": props.variant === "primary",
-    "bg-background text-text": props.variant === "secondary",
+    "bg-primary text-text-invert hover:bg-secondary active:bg-secondary/70":
+      props.variant === "primary",
+    "bg-background text-text hover:bg-background-bis active:bg-background":
+      props.variant === "secondary",
   };
 });
 
