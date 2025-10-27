@@ -3,6 +3,7 @@ import { computed } from "vue";
 
 const props = defineProps({
   variant: { type: String, default: "primary" },
+  dataLabel: { type: String, default: "" },
 });
 
 const variantClasses = computed(() => {
@@ -16,6 +17,7 @@ const variantClasses = computed(() => {
 
 <template>
   <span
+    :aria-label="props.dataLabel"
     class="border border-secondary/15 px-2 py-1 rounded-full text-xs shadow"
     :class="variantClasses"
   >
