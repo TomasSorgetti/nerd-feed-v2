@@ -36,13 +36,19 @@ import MainButton from "../ui/buttons/MainButton.vue";
       </p>
     </div>
 
-    <img
-      :src="ChatVideo"
-      alt="Preview of Nerd Feed chat interface showing developer messages"
-      draggable="false"
-      loading="lazy"
-      class="relative z-20 w-full max-w-200 mx-auto border border-secondary/15 rounded-2xl shadow-2xl mt-10"
-    />
+    <figure>
+      <img
+        :src="ChatVideo"
+        alt="Preview of Nerd Feed chat interface showing developer messages"
+        draggable="false"
+        loading="lazy"
+        class="relative z-20 w-full max-w-200 mx-auto border border-secondary/15 rounded-2xl shadow-2xl mt-10"
+      />
+
+      <figcaption class="sr-only">
+        Example of how Nerd Feed looks — a feed for sharing developer content.
+      </figcaption>
+    </figure>
 
     <MainButton
       to="/auth/register"
