@@ -1,6 +1,6 @@
 <script setup>
 import Background from "../../assets/background.svg";
-import ChatVideo from "../../assets/chat.png";
+import ChatVideo from "../../assets/chat.webp";
 import Badge from "../ui/Badge.vue";
 import MainButton from "../ui/buttons/MainButton.vue";
 </script>

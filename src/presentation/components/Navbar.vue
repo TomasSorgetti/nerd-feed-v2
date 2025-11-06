@@ -33,6 +33,7 @@ const handleLogout = async () => {
     :class="isScrolled ? 'max-w-3xl' : 'max-w-7xl'"
   >
     <nav
+      aria-label="Main navigation"
       class="relative p-4 flex items-center justify-between rounded-2xl"
       :class="isScrolled && 'bg-white shadow-md'"
     >
@@ -51,23 +52,23 @@ const handleLogout = async () => {
         </div>
       </router-link>
 
-      <ul class="flex items-center gap-8 flex-1 justify-center">
-        <li>
+      <ul role="list" class="flex items-center gap-8 flex-1 justify-center">
+        <li role="listitem">
           <NavLink to="/">Home</NavLink>
         </li>
-        <li class="cursor-not-allowed">
+        <li role="listitem" class="cursor-not-allowed">
           Features
           <!-- <NavLink to="/features">Features</NavLink> -->
         </li>
-        <li class="cursor-not-allowed">
+        <li role="listitem" class="cursor-not-allowed">
           Blog
           <!-- <NavLink to="/blog">Blog</NavLink> -->
         </li>
-        <li class="cursor-not-allowed">
+        <li role="listitem" class="cursor-not-allowed">
           Demo
           <!-- <NavLink to="/demo">Demo</NavLink> -->
         </li>
-        <li v-if="user">
+        <li role="listitem" v-if="user">
           <router-link to="/feed" class="text-accent font-medium">
             Feed
           </router-link>
@@ -97,13 +98,17 @@ const handleLogout = async () => {
 
         <template v-else>
           <li class="flex items-center">
-            <button>
-              <Search class="w-6 h-6 text-text cursor-not-allowed" />
+            <button disabled aria-label="search" class="cursor-not-allowed">
+              <Search class="w-6 h-6 text-text" />
             </button>
           </li>
           <li class="flex items-center">
-            <button>
-              <Bell class="w-6 h-6 text-text cursor-not-allowed" />
+            <button
+              disabled
+              aria-label="notifications"
+              class="cursor-not-allowed"
+            >
+              <Bell class="w-6 h-6 text-text" />
             </button>
           </li>
           <li>

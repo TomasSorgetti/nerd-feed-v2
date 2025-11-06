@@ -9,6 +9,8 @@ import Navbar from "./components/Navbar.vue";
   <div class="min-h-screen">
     <Navbar />
 
-    <router-view />
+    <main>
+      <router-view />
+    </main>
   </div>
 </template>
