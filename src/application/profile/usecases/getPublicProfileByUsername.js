@@ -8,7 +8,6 @@ export async function getPublicProfileByUsername(username, { profileRepo }) {
   );
 
   if (error) throw new Error(error.message);
-  if (!data) throw new Error("Profile not found");
 
   return new Profile(data);
 }

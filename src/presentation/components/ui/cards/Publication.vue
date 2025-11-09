@@ -10,9 +10,12 @@ const { publication } = defineProps({
     :id="publication.id"
     class="w-full bg-background rounded-2xl shadow-2xl px-6 py-4"
   >
-    <div class="flex items-center gap-3 justify-start w-full">
+    <router-link
+      :to="`/profile/${publication?.profile?.username}`"
+      class="flex items-center gap-3 justify-start w-full"
+    >
       <Avatar
-        :src="publication?.profile?.avater || '/default-avatar.png'"
+        :src="publication?.profile?.avatar || '/default-avatar.png'"
         size="md"
       />
       <div class="flex flex-col items-start justify-center">
@@ -21,7 +24,7 @@ const { publication } = defineProps({
         </span>
         <span class="text-sm">{{ publication?.profile?.tag || "User" }}</span>
       </div>
-    </div>
+    </router-link>
 
     <div class="mt-4">
       <p class="text-text">

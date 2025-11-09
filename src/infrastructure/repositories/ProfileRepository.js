@@ -1,12 +1,9 @@
 import { supabase } from "../supabase/client.js";
-import { Profile } from "../../domain/entities/Profile.js";
 import { ProfileRepositoryInterface } from "../../domain/interfaces/ProfileRepositoryInterface.js";
 
 export class ProfileRepository extends ProfileRepositoryInterface {
-  async createProfile({ id, username, email, tag, avatar }) {
-    const { error } = await supabase
-      .from("profile")
-      .insert({ id, username, email, tag, avatar });
+  async createProfile(data) {
+    const { error } = await supabase.from("profile").insert(data);
     if (error) throw new Error(error.message);
   }
 
@@ -17,7 +14,7 @@ export class ProfileRepository extends ProfileRepositoryInterface {
       .eq("id", userId)
       .single();
     if (error) throw new Error(error.message);
-    return new Profile(data);
+    return data;
   }
 
   async checkEmailExists(email) {

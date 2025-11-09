@@ -7,6 +7,7 @@ import { usePublicProfile } from "../../composables/usePublicProfile";
 import MainButton from "../../components/ui/buttons/MainButton.vue";
 import Publications from "../../components/Publications.vue";
 import { useProfilePublications } from "../../composables/useProfilePublications";
+import { Settings } from "lucide-vue-next";
 
 const route = useRoute();
 
@@ -24,21 +25,21 @@ const {
 
 <template>
   <div class="container mx-auto mt-32 max-w-5xl">
-    <!-- Todo loading -->
+    <!-- Todo improve loading -->
     <p v-if="loading">Loading...</p>
     <p v-else-if="error">{{ error }}</p>
 
     <section class="flex items-start justify-start gap-16">
-      <h1 class="sr-only">User Profile Page - Coming soon</h1>
-      <Avatar size="3xl" />
+      <h1 class="sr-only">User Profile Page {{ profile?.username }}</h1>
+      <Avatar :src="profile?.avatar || '/default-avatar.png'" size="3xl" />
+
       <div class="h-full flex flex-col items-start">
         <h2 class="text-3xl text-black font-semibold mt-4">
           {{ profile?.username }}
         </h2>
         <span>{{ profile?.tag }}</span>
         <p class="max-w-md text-secondary mt-2">
-          Nerd Feed is the social network for programmers: a space to share
-          ideas, epic bugs, and quick tips.
+          {{ profile?.bio || "This user does not have a bio yet." }}
         </p>
 
         <div class="flex items-center gap-2 mt-4">
@@ -48,8 +49,10 @@ const {
           </template>
 
           <template v-else>
-            <MainButton variant="tertiary">Settings</MainButton>
-            <MainButton>Add Post</MainButton>
+            <MainButton>
+              <Settings class="mr-2 w-4 h-4" />
+              Settings
+            </MainButton>
           </template>
         </div>
       </div>

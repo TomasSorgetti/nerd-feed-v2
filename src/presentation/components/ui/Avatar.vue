@@ -54,6 +54,7 @@ const sizeClass = computed(() => {
         :alt="alt"
         class="object-cover w-full h-full select-none"
         loading="lazy"
+        draggable="false"
         decoding="async"
       />
     </div>
@@ -74,6 +75,7 @@ const sizeClass = computed(() => {
       :alt="alt"
       class="object-cover w-full h-full select-none"
       loading="lazy"
+      draggable="false"
       decoding="async"
     />
   </div>
