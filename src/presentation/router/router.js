@@ -23,32 +23,39 @@ const routes = [
   {
     path: "/auth/login",
     component: Login,
+    meta: { guestOnly: true },
   },
   {
     path: "/auth/register",
     component: Register,
+    meta: { guestOnly: true },
   },
   {
     path: "/auth/forgot-password",
     component: ForgotPassword,
+    meta: { guestOnly: true },
   },
 
   // private routes
   {
     path: "/feed",
     component: Feed,
+    meta: { requiresAuth: true },
   },
   {
     path: "/private-chat/:roomId",
     component: PrivateChat,
+    meta: { requiresAuth: true },
   },
   {
     path: "/profile/:username",
     component: Profile,
+    meta: { requiresAuth: true },
   },
   {
     path: "/settings/:userId",
     component: Settings,
+    meta: { requiresAuth: true },
   },
 
   // error routes
@@ -68,6 +75,14 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
+  //? de donde saco el user, importo el servicio?
+  // if (to.meta.requiresAuth && user.id === null) {
+  //   return "/auth/login";
+  // }
+  // if (to.meta.guestOnly && user.id !== null) {
+  //   return "/feed";
+  // }
+
   isLoading.value = true;
 
   await new Promise((resolve) => setTimeout(resolve, 1200));

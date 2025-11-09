@@ -1,5 +1,5 @@
-import { SupabaseAuthRepository } from "../../infrastructure/repositories/SupabaseAuthRepository.js";
-import { SupabaseProfileRepository } from "../../infrastructure/repositories/SupabaseProfileRepository.js";
+import { AuthRepository } from "../../infrastructure/repositories/AuthRepository.js";
+import { ProfileRepository } from "../../infrastructure/repositories/ProfileRepository.js";
 import { LocalStorageUserStore } from "../../infrastructure/storage/LocalStorageUserStore.js";
 import { signInUser } from "./usecases/signInUser.js";
 import { signUpUser } from "./usecases/signUpUser.js";
@@ -12,8 +12,8 @@ import { emailExists } from "./usecases/emailExists.js";
  */
 export class AuthService {
   constructor() {
-    this.authRepo = new SupabaseAuthRepository();
-    this.profileRepo = new SupabaseProfileRepository();
+    this.authRepo = new AuthRepository();
+    this.profileRepo = new ProfileRepository();
     this.userStore = new LocalStorageUserStore();
   }
 

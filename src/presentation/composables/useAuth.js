@@ -9,6 +9,7 @@ export function useAuth() {
   let unsubscribe = null;
 
   onMounted(() => {
+    // todo => if !user, suscribe
     unsubscribe = authService.subscribe((u) => (user.value = u));
   });
 

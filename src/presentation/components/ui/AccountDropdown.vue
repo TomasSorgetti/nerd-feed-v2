@@ -46,8 +46,8 @@ onBeforeUnmount(() => {
   document.removeEventListener("keydown", handleKeyDown);
 });
 
-const handleSelect = (action) => {
-  action?.();
+const handleSelect = (fn) => {
+  fn?.(); // si existe cb, se ejecuta
   closeDropdown();
 };
 </script>
@@ -82,12 +82,13 @@ const handleSelect = (action) => {
         role="menu"
         tabindex="-1"
       >
-        <li
-          class="cursor-pointer block w-full text-left px-4 py-2 text-sm hover:bg-secondary/10 rounded"
-          @click="handleSelect(() => console.log('Go to profile'))"
-          role="menuitem"
-        >
-          Profile
+        <li role="menuitem">
+          <router-link
+            :to="`/profile/${user?.profile?.username}` || '#'"
+            class="cursor-pointer block w-full text-left px-4 py-2 text-sm hover:bg-secondary/10 rounded"
+            @click="handleSelect()"
+            >Profile</router-link
+          >
         </li>
         <li
           class="cursor-pointer block w-full text-left px-4 py-2 text-sm hover:bg-secondary/10 rounded"

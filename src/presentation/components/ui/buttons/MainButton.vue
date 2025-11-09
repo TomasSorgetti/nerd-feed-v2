@@ -3,6 +3,7 @@ import { computed } from "vue";
 
 const props = defineProps({
   to: { type: [String, Object], default: null },
+  type: { type: String, default: "text" },
   dataLabel: { type: String, default: "" },
   variant: { type: String, default: "primary" },
   size: { type: String, default: "sm" },
@@ -10,7 +11,7 @@ const props = defineProps({
 });
 
 const commonClasses =
-  "relative z-10 font-medium mt-10 rounded-lg cursor-pointer shadow";
+  "relative z-10 font-medium rounded-lg cursor-pointer shadow";
 
 const variantClasses = computed(() => {
   return {
@@ -18,6 +19,8 @@ const variantClasses = computed(() => {
       props.variant === "primary",
     "bg-background text-text hover:bg-background-bis active:bg-background":
       props.variant === "secondary",
+    "bg-secondary text-white hover:bg-secondary/60 active:bg-secondary/40":
+      props.variant === "tertiary",
   };
 });
 
@@ -41,7 +44,7 @@ const sizeClasses = computed(() => {
 
   <button
     v-else
-    type="button"
+    :type="type"
     @click="props.handleClick"
     :aria-label="props.dataLabel"
     :class="[commonClasses, variantClasses, sizeClasses]"

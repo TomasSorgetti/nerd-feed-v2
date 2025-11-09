@@ -5,7 +5,13 @@
   --color-background-bis: #fbfaf9;
 
   --color-primary: #37322f;
+  --color-primary-hover: #3b3736;
+  --color-primary-active: #5e5756;
+
   --color-secondary: #605a57;
+  --color-secondary-hover: #4e4947;
+  --color-secondary-active: #9b9491;
+
   --color-tertiary: #201e1d;
   --color-accent: #e16741;
 

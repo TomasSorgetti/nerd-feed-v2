@@ -1,7 +1,8 @@
 import { supabase } from "../supabase/client.js";
 import { User } from "../../domain/entities/User.js";
+import { AuthRepositoryInterface } from "../../domain/interfaces/AuthRepositoryInterface.js";
 
-export class SupabaseAuthRepository {
+export class AuthRepository extends AuthRepositoryInterface {
   async signIn(email, password) {
     const { data, error } = await supabase.auth.signInWithPassword({
       email,

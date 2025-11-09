@@ -1,6 +1,6 @@
-import { UserStore } from "../../domain/repositories/UserStore.js";
+import { UserStoreInterface } from "../../domain/interfaces/UserStoreInterface.js";
 
-export class LocalStorageUserStore extends UserStore {
+export class LocalStorageUserStore extends UserStoreInterface {
   constructor() {
     super();
     this.user = null;

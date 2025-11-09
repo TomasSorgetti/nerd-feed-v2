@@ -37,12 +37,14 @@ import MainButton from "../ui/buttons/MainButton.vue";
         epic bugs, and quick tips.
       </p>
 
-      <MainButton
-        to="/auth/register"
-        variant="primary"
-        dataLabel="Sign up for Nerd Feed"
-        >Sign Up</MainButton
-      >
+      <div class="mt-10">
+        <MainButton
+          to="/auth/register"
+          variant="primary"
+          dataLabel="Sign up for Nerd Feed"
+          >Sign Up</MainButton
+        >
+      </div>
     </div>
 
     <figure

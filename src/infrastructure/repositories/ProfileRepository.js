@@ -1,7 +1,8 @@
 import { supabase } from "../supabase/client.js";
 import { Profile } from "../../domain/entities/Profile.js";
+import { ProfileRepositoryInterface } from "../../domain/interfaces/ProfileRepositoryInterface.js";
 
-export class SupabaseProfileRepository {
+export class ProfileRepository extends ProfileRepositoryInterface {
   async createProfile({ id, username, email, tag, avatar }) {
     const { error } = await supabase
       .from("profile")
@@ -28,5 +29,13 @@ export class SupabaseProfileRepository {
 
     if (error) throw new Error(error.message);
     return !!data;
+  }
+
+  async getPublicProfileByUsername(username) {
+    return await supabase
+      .from("profile")
+      .select("id, username, email, tag, avatar")
+      .eq("username", username)
+      .single();
   }
 }
