@@ -7,12 +7,12 @@ import Register from "../pages/auth/Register.vue";
 import ForgotPassword from "../pages/auth/ForgotPassword.vue";
 
 import Feed from "../pages/Feed.vue";
-import PrivateChat from "../pages/PrivateChat.vue";
 import Profile from "../pages/account/Profile.vue";
 import Settings from "../pages/account/Settings.vue";
 
 import ServerError from "../pages/error/ServerError.vue";
 import NotFound from "../pages/error/NotFound.vue";
+import Chat from "../pages/Chat.vue";
 
 const routes = [
   // public routes
@@ -43,11 +43,6 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-    path: "/private-chat/:roomId",
-    component: PrivateChat,
-    meta: { requiresAuth: true },
-  },
-  {
     path: "/profile/:username",
     component: Profile,
     meta: { requiresAuth: true },
@@ -55,6 +50,11 @@ const routes = [
   {
     path: "/settings/:userId",
     component: Settings,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/chat",
+    component: Chat,
     meta: { requiresAuth: true },
   },
 

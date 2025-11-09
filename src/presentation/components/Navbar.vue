@@ -6,8 +6,7 @@ import Logo from "../assets/logo.svg";
 import NavLink from "./ui/NavLink.vue";
 import MainButton from "./ui/buttons/MainButton.vue";
 import AccountDropdown from "./ui/AccountDropdown.vue";
-import { Bell } from "lucide-vue-next";
-import { Search } from "lucide-vue-next";
+import { Bell, MessageCircle } from "lucide-vue-next";
 import { useRouter } from "vue-router";
 
 const { isScrolled } = useScrollPosition(20);
@@ -98,9 +97,9 @@ const handleLogout = async () => {
 
         <template v-else>
           <li class="flex items-center">
-            <button disabled aria-label="search" class="cursor-not-allowed">
-              <Search class="w-6 h-6 text-text" />
-            </button>
+            <router-link to="/chat" aria-label="private chat page" class="">
+              <MessageCircle class="w-6 h-6 text-text" />
+            </router-link>
           </li>
           <li class="flex items-center">
             <button
