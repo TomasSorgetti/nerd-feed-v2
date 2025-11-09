@@ -1,4 +1,5 @@
 <script setup>
+import { computed } from "vue";
 import { useRoute } from "vue-router";
 import Avatar from "../../components/ui/Avatar.vue";
 import { useAuth } from "../../composables/useAuth";
@@ -11,7 +12,14 @@ const route = useRoute();
 
 const { user } = useAuth();
 const { profile, loading, error } = usePublicProfile(route.params.username);
-const { publications } = useProfilePublications(profile?.id);
+
+const profileId = computed(() => profile.value?.id);
+
+const {
+  publications,
+  error: errorPublications,
+  loading: loadingPublications,
+} = useProfilePublications(profileId);
 </script>
 
 <template>
@@ -49,7 +57,11 @@ const { publications } = useProfilePublications(profile?.id);
 
     <section class="mt-20">
       <h2 class="text-4xl font-semibold text-text-heading">Publications</h2>
-      <Publications :publications="publications" />
+      <Publications
+        :publications="publications"
+        :loading="loadingPublications"
+        :error="errorPublications"
+      />
     </section>
   </div>
 </template>

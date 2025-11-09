@@ -12,6 +12,7 @@
     "@supabase/supabase-js": "^2.76.1",
     "@vueuse/head": "^2.0.0",
     "lucide-vue-next": "^0.546.0",
+    "uuid": "^13.0.0",
     "vue": "^3.5.22",
     "vue-router": "^4.6.3"
   },

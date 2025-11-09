@@ -10,7 +10,6 @@ export function useProfilePublications(profileId) {
 
   const load = async () => {
     if (!profileId.value) return;
-    // todo --> if publications is empty, load them
     loading.value = true;
     try {
       publications.value = await publicationService.getByProfile(
@@ -28,5 +27,10 @@ export function useProfilePublications(profileId) {
    */
   watch(profileId, load, { immediate: true });
 
-  return { publications, loading, error, reload: load };
+  return {
+    publications,
+    loading,
+    error,
+    reload: load,
+  };
 }

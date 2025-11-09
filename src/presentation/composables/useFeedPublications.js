@@ -20,7 +20,24 @@ export function useFeedPublications() {
     }
   };
 
+  const createPublication = async (data) => {
+    if (!data) return;
+    loading.value = true;
+    try {
+      const newPublication = await publicationService.create(data);
+      console.log("publication[new]: ", newPublication);
+
+      publications.value.unshift(newPublication);
+    } catch (err) {
+      console.log(err);
+
+      error.value = err.message;
+    } finally {
+      loading.value = false;
+    }
+  };
+
   onMounted(load);
 
-  return { publications, loading, error, reload: load };
+  return { publications, loading, error, reload: load, createPublication };
 }

@@ -1,9 +1,13 @@
 <script setup>
 import Publication from "./ui/cards/Publication.vue";
 
+/**
+ * todo -> fix loading all components
+ * error y loading no deberian ser props sino estar en el componente padre
+ */
 const props = defineProps({
   loading: { type: Boolean, default: false },
-  error: { type: Boolean, default: null },
+  error: { type: String, default: null },
   publications: { type: [Object], default: [] },
 });
 </script>

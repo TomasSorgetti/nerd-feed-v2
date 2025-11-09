@@ -1,4 +1,7 @@
 export async function getPublicationsByProfile(profileId, { publicationRepo }) {
-  if (!profileId) throw new Error("Profile ID is required");
-  return await publicationRepo.getByProfile(profileId);
+  const { data, error } = await publicationRepo.getByProfile(profileId);
+
+  if (error) throw new Error(error);
+
+  return data;
 }
