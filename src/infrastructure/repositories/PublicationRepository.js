@@ -3,15 +3,15 @@ import { supabase } from "../supabase/client.js";
 export class PublicationRepository {
   async getAll() {
     return await supabase
-      .from("publications")
-      .select("*, profile:profile(id, username, avatar)")
+      .from("posts")
+      .select("*, profile:profile(id, username, tag, avatar)")
       .order("created_at", { ascending: false });
   }
 
   async getByProfile(profileId) {
     return await supabase
       .from("posts")
-      .select("*, profile:profile(id, username, avatar)")
+      .select("*, profile:profile(id, username, tag, avatar)")
       .eq("profile_id", profileId)
       .order("created_at", { ascending: false });
   }

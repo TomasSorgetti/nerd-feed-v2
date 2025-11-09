@@ -1,3 +1,7 @@
 export async function getAllPublications({ publicationRepo }) {
-  return await publicationRepo.getAll();
+  const { data, error } = await publicationRepo.getAll();
+
+  if (error) throw new Error(error);
+
+  return data;
 }
