@@ -1,6 +1,6 @@
 <script setup>
-import { isLoading } from "../stores/loading.js";
-import Logo from "../assets/logo.svg";
+import { isLoading } from "../../stores/loading.js";
+import Logo from "../../assets/logo.svg";
 </script>
 
 <template>

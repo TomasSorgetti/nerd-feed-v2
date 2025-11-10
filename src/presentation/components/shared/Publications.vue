@@ -1,5 +1,5 @@
 <script setup>
-import Publication from "./ui/cards/Publication.vue";
+import Publication from "./cards/Publication.vue";
 
 /**
  * todo -> fix loading all components

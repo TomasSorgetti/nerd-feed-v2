@@ -5,7 +5,7 @@ import Avatar from "../../components/ui/Avatar.vue";
 import { useAuth } from "../../composables/useAuth";
 import { usePublicProfile } from "../../composables/usePublicProfile";
 import MainButton from "../../components/ui/buttons/MainButton.vue";
-import Publications from "../../components/Publications.vue";
+import Publications from "../../components/ui/Publications.vue";
 import { useProfilePublications } from "../../composables/useProfilePublications";
 import { Settings } from "lucide-vue-next";
 

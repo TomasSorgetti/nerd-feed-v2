@@ -1,6 +1,6 @@
 <script setup>
 import { defineAsyncComponent } from "vue";
-import Seo from "../components/Seo.vue";
+import Seo from "../components/ui/Seo.vue";
 import HomeBanner from "../components/home/HomeBanner.vue";
 
 const ChatCta = defineAsyncComponent(() =>

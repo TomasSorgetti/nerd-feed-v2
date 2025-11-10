@@ -1,11 +1,11 @@
 <script setup>
-import { useScrollPosition } from "../composables/useScrollPosition.js";
-import { useAuth } from "../composables/useAuth.js";
+import { useScrollPosition } from "../../composables/useScrollPosition.js";
+import { useAuth } from "../../composables/useAuth.js";
 
-import Logo from "../assets/logo.svg";
-import NavLink from "./ui/NavLink.vue";
-import MainButton from "./ui/buttons/MainButton.vue";
-import AccountDropdown from "./ui/AccountDropdown.vue";
+import Logo from "../../assets/logo.svg";
+import NavLink from "./NavLink.vue";
+import MainButton from "./buttons/MainButton.vue";
+import AccountDropdown from "./AccountDropdown.vue";
 import { Bell, MessageCircle } from "lucide-vue-next";
 import { useRouter } from "vue-router";
 
