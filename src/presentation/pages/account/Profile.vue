@@ -45,7 +45,9 @@ const {
         <div class="flex items-center gap-2 mt-4">
           <template v-if="user?.profile?.username !== profile?.username">
             <MainButton variant="tertiary">Follow</MainButton>
-            <MainButton>Send Message</MainButton>
+            <MainButton :to="`/chat?user=${profile?.username}`"
+              >Send Message</MainButton
+            >
           </template>
 
           <template v-else>
