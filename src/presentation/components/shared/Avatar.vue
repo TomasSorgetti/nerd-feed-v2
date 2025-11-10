@@ -7,18 +7,15 @@ const props = defineProps({
   size: { type: [Number, String], default: "md" },
   rounded: { type: String, default: "full" },
   clickable: { type: Boolean, default: false },
-  onClick: { type: Function },
   ring: { type: Boolean, default: false },
 });
 
+const emit = defineEmits(["click"]);
+
 const sizeClass = computed(() => {
   if (typeof props.size === "number") {
-    return {
-      width: `${props.size}px`,
-      height: `${props.size}px`,
-    };
+    return { width: `${props.size}px`, height: `${props.size}px` };
   }
-
   const map = {
     xs: "w-6 h-6",
     sm: "w-8 h-8",
@@ -36,9 +33,10 @@ const sizeClass = computed(() => {
   <button
     v-if="clickable"
     type="button"
-    @click="onClick"
+    @click="emit('click')"
     :aria-label="alt"
     class="inline-flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+    :class="clickable ? 'cursor-pointer hover:opacity-90' : ''"
   >
     <div
       :class="[
@@ -50,7 +48,7 @@ const sizeClass = computed(() => {
       :style="typeof size === 'number' ? sizeClass : undefined"
     >
       <img
-        :src="src"
+        :src="src || '/placeholder-avatar.png'"
         :alt="alt"
         class="object-cover w-full h-full select-none"
         loading="lazy"
@@ -71,7 +69,7 @@ const sizeClass = computed(() => {
     :style="typeof size === 'number' ? sizeClass : undefined"
   >
     <img
-      :src="src"
+      :src="src || '/placeholder-avatar.png'"
       :alt="alt"
       class="object-cover w-full h-full select-none"
       loading="lazy"
