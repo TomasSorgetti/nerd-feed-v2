@@ -1,16 +1,16 @@
 <script setup>
 import { defineAsyncComponent } from "vue";
 import Seo from "../components/Seo.vue";
-import HomeBanner from "../components/sections/HomeBanner.vue";
+import HomeBanner from "../components/home/HomeBanner.vue";
 
 const ChatCta = defineAsyncComponent(() =>
-  import("../components/sections/ChatCta.vue")
+  import("../components/home/ChatCta.vue")
 );
 const HomeCta = defineAsyncComponent(() =>
-  import("../components/sections/HomeCta.vue")
+  import("../components/home/HomeCta.vue")
 );
 const Sponsors = defineAsyncComponent(() =>
-  import("../components/sections/Sponsors.vue")
+  import("../components/home/Sponsors.vue")
 );
 </script>
 

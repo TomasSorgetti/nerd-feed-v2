@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import MainButton from "../../ui/buttons/MainButton.vue";
+import MainButton from "../ui/buttons/MainButton.vue";
 
 const emit = defineEmits(["submit"]);
 

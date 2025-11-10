@@ -1,5 +1,5 @@
 <script setup>
-import Badge from "../../ui/Badge.vue";
+import Badge from "../ui/Badge.vue";
 </script>
 
 <template>
