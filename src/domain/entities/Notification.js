@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from "uuid";
+import { NotificationTypes } from "../enums/NotificationTypes";
 
-export class Chat {
+export class Notification {
   #id;
   #user_id;
   #type;
@@ -24,6 +25,9 @@ export class Chat {
   }) {
     if (!user_id) throw new Error("User ID is required");
     if (!type) throw new Error("Type is required");
+    if (!Object.values(NotificationTypes).includes(type)) {
+      throw new Error("Type is invalid");
+    }
     if (!title) throw new Error("Title is required");
     if (!message) throw new Error("Message is required");
     if (!metadata) throw new Error("Metadata is required");
