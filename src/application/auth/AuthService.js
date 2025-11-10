@@ -9,6 +9,8 @@ import { emailExists } from "./usecases/emailExists.js";
 /**
  *  Auth service funciona como una especie de intermediario que inyecta las dependencias de los usecases
  *  y deja los metodos servidos para la interfaz
+ *
+ *  todo -> usar metodos privados
  */
 export class AuthService {
   constructor() {
