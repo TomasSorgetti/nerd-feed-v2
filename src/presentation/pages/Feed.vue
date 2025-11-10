@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Publications from "../components/ui/Publications.vue";
+import Publications from "../components/shared/Publications.vue";
 import FeedBanner from "../components/feed/FeedBanner.vue";
 import FeedInput from "../components/feed/FeedInput.vue";
 import { useAuth } from "../composables/useAuth";

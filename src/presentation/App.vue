@@ -1,6 +1,6 @@
 <script setup>
-import LoadingPage from "./components/ui/LoadingPage.vue";
-import Navbar from "./components/ui/Navbar.vue";
+import LoadingPage from "./components/shared/LoadingPage.vue";
+import Navbar from "./components/shared/Navbar.vue";
 </script>
 
 <template>

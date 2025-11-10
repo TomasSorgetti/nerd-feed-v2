@@ -1,8 +1,8 @@
 <script setup>
 import Background from "../../assets/background.svg";
 import Video from "../../assets/video.webp";
-import Badge from "../ui/Badge.vue";
-import MainButton from "../ui/buttons/MainButton.vue";
+import Badge from "../shared/Badge.vue";
+import MainButton from "../shared/buttons/MainButton.vue";
 </script>
 
 <template>

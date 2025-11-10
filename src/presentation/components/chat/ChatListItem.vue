@@ -1,6 +1,6 @@
 <script setup>
 import { Bell } from "lucide-vue-next";
-import Avatar from "../ui/Avatar.vue";
+import Avatar from "../shared/Avatar.vue";
 
 const props = defineProps({
   chat: {

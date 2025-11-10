@@ -5,9 +5,9 @@ import { useAuth } from "../../composables/useAuth.js";
 
 import Logo from "../../assets/logo.svg";
 import { ArrowRight, ArrowLeft } from "lucide-vue-next";
-import CustomInput from "../../components/ui/forms/CustomInput.vue";
-import FormButton from "../../components/ui/buttons/FormButton.vue";
-import GoogleButton from "../../components/ui/buttons/GoogleButton.vue";
+import CustomInput from "../../components/shared/forms/CustomInput.vue";
+import FormButton from "../../components/shared/buttons/FormButton.vue";
+import GoogleButton from "../../components/shared/buttons/GoogleButton.vue";
 
 const { signIn } = useAuth();
 const router = useRouter();

@@ -1,6 +1,6 @@
 <script setup>
 import { Paperclip } from "lucide-vue-next";
-import MainButton from "../ui/buttons/MainButton.vue";
+import MainButton from "../shared/buttons/MainButton.vue";
 
 const props = defineProps({
   activeChat: {
