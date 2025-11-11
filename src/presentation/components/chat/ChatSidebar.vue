@@ -22,8 +22,8 @@ const emit = defineEmits(["select"]);
     <h1 class="ml-8 py-6 font-semibold text-2xl">Chat List</h1>
 
     <ul class="space-y-1">
-      <template v-if="chats.length">
-        <li v-for="chat in chats" :key="chat.id">
+      <template v-if="props.chats.length">
+        <li v-for="chat in props.chats" :key="chat.id">
           <ChatListItem
             :chat="chat"
             :active="chat.id === activeChat?.id"

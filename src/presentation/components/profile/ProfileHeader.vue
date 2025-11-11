@@ -3,7 +3,7 @@ import { ref, computed } from "vue";
 import Avatar from "../shared/Avatar.vue";
 import MainButton from "../shared/buttons/MainButton.vue";
 import VueCropper from "vue-cropperjs";
-import 'cropperjs/dist/cropper.css'
+import "cropperjs/dist/cropper.css";
 import { Settings } from "lucide-vue-next";
 
 const props = defineProps({
@@ -78,7 +78,7 @@ function confirmCrop() {
       <div class="flex items-center gap-2 mt-4">
         <template v-if="!isOwnProfile">
           <MainButton variant="tertiary">Follow</MainButton>
-          <MainButton :to="`/chat?user=${profile?.username}`"
+          <MainButton :to="`/chat?user=${profile?.id}`"
             >Send Message</MainButton
           >
         </template>

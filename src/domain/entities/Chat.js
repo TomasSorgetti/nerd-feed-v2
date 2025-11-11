@@ -5,6 +5,9 @@ export class Chat {
   #user1_id;
   #user2_id;
   #last_message_id;
+  #last_message;
+  #profile;
+  #messages;
   #created_at;
 
   constructor({
@@ -12,6 +15,9 @@ export class Chat {
     user1_id,
     user2_id,
     last_message_id,
+    last_message = null,
+    profile = null,
+    messages = [],
     created_at = new Date().toISOString(),
   }) {
     if (!user1_id) throw new Error("User1 ID is required");
@@ -21,6 +27,9 @@ export class Chat {
     this.#user1_id = user1_id;
     this.#user2_id = user2_id;
     this.#last_message_id = last_message_id;
+    this.#last_message = last_message;
+    this.#profile = profile;
+    this.#messages = messages;
     this.#created_at = created_at;
   }
 
@@ -40,8 +49,20 @@ export class Chat {
     return this.#last_message_id;
   }
 
+  get last_message() {
+    return this.#last_message;
+  }
+
   get created_at() {
     return this.#created_at;
+  }
+
+  get profile() {
+    return this.#profile;
+  }
+
+  get messages() {
+    return this.#messages;
   }
 
   toObject() {
@@ -50,7 +71,10 @@ export class Chat {
       user1_id: this.#user1_id,
       user2_id: this.#user2_id,
       last_message_id: this.#last_message_id,
+      last_message: this.#last_message,
       created_at: this.#created_at,
+      profile: this.#profile,
+      messages: this.#messages,
     };
   }
 }

@@ -11,54 +11,38 @@ import ChatInput from "../components/chat/ChatInput.vue";
 
 const route = useRoute();
 const { user } = useAuth();
-
-const queryName = computed(() => route.query.user || null);
-const chatsState = ref(null);
+const { chats, createChat } = useChats(user?.value?.id);
+const queryUserId = computed(() => route.query.user || null);
 const activeChat = ref(null);
 
-watch(
-  () => user.value?.id,
-  (userId) => {
-    if (userId) {
-      chatsState.value = useChats(userId);
-      chatsState.value.reload();
-    }
-  },
-  { immediate: true }
-);
+watch(queryUserId, () => {
+  activeChat.value = null;
+});
 
-watch(
-  [queryName, () => chatsState.value],
-  async ([username, state]) => {
-    if (!username || !state || !state.chats || !user.value) return;
-
-    const chats = state.chats.value;
-    console.log("Chats: ", chats);
-    if (!Array.isArray(chats)) return;
-
-    console.log("Watcher ejecutado", { username, chats: chats.length });
-
-    const existingChat = chats.find(
-      (chat) =>
-        chat.users?.includes(user.value.id) && chat.users?.includes(username)
+/**
+ * Estoy cansado jefe
+ */
+watch(chats, async () => {
+  /**
+   * Todo -> tal vez esta logica la deberia hacer el createChat
+   */
+  if (queryUserId.value) {
+    const chatExists = chats.value.find(
+      (chat) => chat.username === queryUserId.value
     );
-
-    if (existingChat) {
-      activeChat.value = existingChat;
+    if (chatExists) {
+      // si ya existe un chat con este usuario, se setea como active
+      activeChat.value = chatExists;
     } else {
-      console.log("Creando chat local con", username);
-      const newChat = await state.createChat(
-        { from: user.value.id, to: username },
+      // si no existe un chat con este usuario, se crea uno localmente y se setea como active
+      const newLocalChat = await createChat(
+        { from: user.value.id, to: queryUserId.value },
         { local: true }
       );
-      if (newChat) {
-        activeChat.value = newChat;
-        console.log("Chat creado:", newChat.id);
-      }
+      activeChat.value = newLocalChat;
     }
-  },
-  { immediate: true }
-);
+  }
+});
 </script>
 
 <template>
@@ -67,13 +51,16 @@ watch(
       class="flex h-full shadow-2xl border border-secondary/20 rounded-2xl overflow-hidden"
     >
       <ChatSidebar
-        :chats="chatsState?.chats?.value || []"
+        :chats="chats"
         :activeChat="activeChat"
         @select="activeChat = $event"
       />
 
       <div class="bg-background w-full h-full flex flex-col justify-between">
-        <ChatHeader :activeChat="activeChat" :username="queryName" />
+        <ChatHeader
+          :activeChat="activeChat"
+          :username="activeChat?.profile?.username"
+        />
         <ChatWindow :activeChat="activeChat" />
         <ChatInput :activeChat="activeChat" />
       </div>

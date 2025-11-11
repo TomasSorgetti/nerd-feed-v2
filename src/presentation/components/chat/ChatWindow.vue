@@ -12,7 +12,7 @@ const props = defineProps({
 
 <template>
   <div class="w-full h-full p-8 overflow-y-scroll">
-    <template v-if="activeChat">
+    <template v-if="activeChat?.messages.length">
       <PrivateMessage>Hola, ¿Qué tal?</PrivateMessage>
       <PrivateMessage variant="secondary"
         >Hola, Todo bien y vos?</PrivateMessage
