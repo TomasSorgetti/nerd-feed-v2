@@ -5,14 +5,18 @@ export class PublicationRepository extends PublicationRepositoryInterface {
   async getAll() {
     return await supabase
       .from("posts")
-      .select("*, profile:profile(id, username, tag, avatar)")
+      .select(
+        "*, profile:profile(id, username, tag, avatar), comments ( id ),favorites ( user_id )"
+      )
       .order("created_at", { ascending: false });
   }
 
   async getByProfile(profileId) {
     return await supabase
       .from("posts")
-      .select("*, profile:profile(id, username, tag, avatar)")
+      .select(
+        "*, profile:profile(id, username, tag, avatar), comments ( id ),favorites ( user_id )"
+      )
       .eq("user_id", profileId)
       .order("created_at", { ascending: false });
   }

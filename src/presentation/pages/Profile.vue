@@ -4,12 +4,12 @@
  */
 import { ref, computed } from "vue";
 import { useRoute } from "vue-router";
-import { useAuth } from "../../composables/useAuth";
-import { usePublicProfile } from "../../composables/usePublicProfile";
-import Publications from "../../components/shared/Publications.vue";
-import { useProfilePublications } from "../../composables/useProfilePublications";
-import SettingsModal from "../../components/profile/SettingsModal.vue";
-import ProfileHeader from "../../components/profile/ProfileHeader.vue";
+import { useAuth } from "../composables/useAuth";
+import { usePublicProfile } from "../composables/usePublicProfile";
+import Publications from "../components/shared/Publications.vue";
+import { useProfilePublications } from "../composables/useProfilePublications";
+import SettingsModal from "../components/profile/SettingsModal.vue";
+import ProfileHeader from "../components/profile/ProfileHeader.vue";
 
 const route = useRoute();
 const isOpenModal = ref(false);

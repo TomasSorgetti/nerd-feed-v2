@@ -1,5 +1,8 @@
 <script setup>
+import { Heart } from "lucide-vue-next";
 import Avatar from "../Avatar.vue";
+import { MessageCircle } from "lucide-vue-next";
+import { Share2 } from "lucide-vue-next";
 const { publication } = defineProps({
   publication: { type: Object, required: true },
 });
@@ -28,9 +31,32 @@ const { publication } = defineProps({
 
     <div class="mt-4">
       <p class="text-text">
-        {{ publication.content }}
+        {{ publication?.content }}
       </p>
-      <small>{{ publication.created_at }}</small>
+      <small>{{ publication?.created_at }}</small>
     </div>
+
+    <ul class="flex items-center justify-start gap-2 mt-4">
+      <li>
+        <button class="flex items-center justify-start gap-1 cursor-pointer">
+          <Heart class="w-5 h-5" />
+          <span class="text-sm">{{ publication?.favorites?.length }}</span>
+        </button>
+      </li>
+      <li>
+        <router-link
+          :to="`/publication/${publication?.id}`"
+          class="flex items-center justify-start gap-1 cursor-pointer"
+        >
+          <MessageCircle class="w-5 h-5" />
+          <span class="text-sm">{{ publication?.comments?.length }}</span>
+        </router-link>
+      </li>
+      <li>
+        <button class="flex items-center justify-start gap-1 cursor-pointer">
+          <Share2 class="w-5 h-5" />
+        </button>
+      </li>
+    </ul>
   </div>
 </template>

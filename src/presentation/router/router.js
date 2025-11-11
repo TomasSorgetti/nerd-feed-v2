@@ -7,8 +7,8 @@ import Register from "../pages/auth/Register.vue";
 import ForgotPassword from "../pages/auth/ForgotPassword.vue";
 
 import Feed from "../pages/Feed.vue";
-import Profile from "../pages/account/Profile.vue";
-import Settings from "../pages/account/Settings.vue";
+import Publication from "../pages/Publication.vue";
+import Profile from "../pages/Profile.vue";
 
 import ServerError from "../pages/error/ServerError.vue";
 import NotFound from "../pages/error/NotFound.vue";
@@ -43,13 +43,13 @@ const routes = [
     meta: { requiresAuth: true },
   },
   {
-    path: "/profile/:username",
-    component: Profile,
+    path: "/publication/:publicationId",
+    component: Publication,
     meta: { requiresAuth: true },
   },
   {
-    path: "/settings/:userId",
-    component: Settings,
+    path: "/profile/:username",
+    component: Profile,
     meta: { requiresAuth: true },
   },
   {
