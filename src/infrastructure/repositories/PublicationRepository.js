@@ -6,7 +6,7 @@ export class PublicationRepository extends PublicationRepositoryInterface {
     return await supabase
       .from("posts")
       .select(
-        "*, profile:profile(id, username, tag, avatar), comments ( id ),favorites ( user_id )"
+        "*, profile:profile(id, username, tag, avatar), comments ( id ),favorites ( id, user_id )"
       )
       .order("created_at", { ascending: false });
   }

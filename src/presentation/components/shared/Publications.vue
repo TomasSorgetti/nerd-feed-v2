@@ -10,6 +10,8 @@ const props = defineProps({
   error: { type: String, default: null },
   publications: { type: [Object], default: [] },
 });
+
+const emit = defineEmits(["toggle-favorite"]);
 </script>
 
 <template>
@@ -23,7 +25,10 @@ const props = defineProps({
     <div v-else>
       <ul class="space-y-4">
         <li v-for="publication in publications" :key="publication.id">
-          <Publication :publication="publication" />
+          <Publication
+            :publication="publication"
+            @toggle-favorite="emit('toggle-favorite', publication)"
+          />
         </li>
       </ul>
     </div>

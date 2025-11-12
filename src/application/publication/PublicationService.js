@@ -8,14 +8,19 @@ export class PublicationService {
     this.publicationRepo = new PublicationRepository();
   }
 
-  async getAll() {
-    return await getAllPublications({ publicationRepo: this.publicationRepo });
-  }
-
-  async getByProfile(profileId) {
-    return await getPublicationsByProfile(profileId, {
+  async getAll(userId) {
+    return await getAllPublications(userId, {
       publicationRepo: this.publicationRepo,
     });
+  }
+
+  async getByProfile(profileId, userId) {
+    return await getPublicationsByProfile(
+      { profileId, userId },
+      {
+        publicationRepo: this.publicationRepo,
+      }
+    );
   }
 
   async create({ content, image, user_id }) {

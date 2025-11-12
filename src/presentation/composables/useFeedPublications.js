@@ -1,10 +1,10 @@
 import { ref, onMounted } from "vue";
 import { PublicationService } from "../../application/publication/PublicationService.js";
 
-//? deberia hacer un solo composable (profile y feed) y me ahorro la repeticion e instancia de dos servicios
+// todo => deberia hacer un solo composable (profile y feed) y me ahorro la repeticion e instancia de dos servicios
 const publicationService = new PublicationService();
 
-export function useFeedPublications() {
+export function useFeedPublications(userId) {
   const publications = ref([]);
   const loading = ref(true);
   const error = ref(null);
@@ -12,7 +12,7 @@ export function useFeedPublications() {
   const load = async () => {
     loading.value = true;
     try {
-      publications.value = await publicationService.getAll();
+      publications.value = await publicationService.getAll(userId);
     } catch (err) {
       error.value = err.message;
     } finally {

@@ -3,7 +3,7 @@ import { PublicationService } from "../../application/publication/PublicationSer
 
 const publicationService = new PublicationService();
 
-export function useProfilePublications(profileId) {
+export function useProfilePublications(profileId, userId) {
   const publications = ref([]);
   const loading = ref(true);
   const error = ref(null);
@@ -13,7 +13,8 @@ export function useProfilePublications(profileId) {
     loading.value = true;
     try {
       publications.value = await publicationService.getByProfile(
-        profileId.value
+        profileId.value,
+        userId
       );
     } catch (err) {
       error.value = err.message;

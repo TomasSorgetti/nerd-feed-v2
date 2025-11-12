@@ -4,6 +4,7 @@ import FeedBanner from "../components/feed/FeedBanner.vue";
 import FeedInput from "../components/feed/FeedInput.vue";
 import { useAuth } from "../composables/useAuth";
 import { useFeedPublications } from "../composables/useFeedPublications";
+import { useFavorite } from "../composables/useFavorite";
 
 const { user } = useAuth();
 /**
@@ -15,10 +16,20 @@ const {
   loading: loadingPublications,
   error: errorPublications,
   createPublication,
-} = useFeedPublications();
+} = useFeedPublications(user.value.id);
+
+const { toggleFavorite } = useFavorite();
 
 const handleCreatePublication = async ({ content, image }) => {
   createPublication({ content, image, user_id: user.value.id });
+};
+
+const handleToggleFavorite = async (publication) => {
+  if (!user.value) return;
+  await toggleFavorite(user.value.id, publication.id, publication.is_favorited);
+
+  publication.is_favorited = !publication.is_favorited;
+  publication.favorites_count += publication.is_favorited ? 1 : -1;
 };
 </script>
 
@@ -30,6 +41,7 @@ const handleCreatePublication = async ({ content, image }) => {
       :publications="publications"
       :loading="loadingPublications"
       :error="errorPublications"
+      @toggle-favorite="handleToggleFavorite"
     />
   </main>
 </template>

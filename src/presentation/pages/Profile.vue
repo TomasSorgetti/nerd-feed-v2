@@ -22,7 +22,7 @@ const {
   publications,
   error: errorPublications,
   loading: loadingPublications,
-} = useProfilePublications(profileId);
+} = useProfilePublications(profileId, user.value.id);
 
 function handleAvatarUpdate({ blob, url }) {
   // profile.value.avatar = url;

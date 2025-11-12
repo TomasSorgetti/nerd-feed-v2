@@ -3,9 +3,12 @@ import { Heart } from "lucide-vue-next";
 import Avatar from "../Avatar.vue";
 import { MessageCircle } from "lucide-vue-next";
 import { Share2 } from "lucide-vue-next";
+
 const { publication } = defineProps({
   publication: { type: Object, required: true },
 });
+
+const emit = defineEmits(["toggle-favorite"]);
 </script>
 
 <template>
@@ -38,9 +41,19 @@ const { publication } = defineProps({
 
     <ul class="flex items-center justify-start gap-2 mt-4">
       <li>
-        <button class="flex items-center justify-start gap-1 cursor-pointer">
-          <Heart class="w-5 h-5" />
-          <span class="text-sm">{{ publication?.favorites?.length }}</span>
+        <button
+          @click="emit('toggle-favorite')"
+          class="flex items-center justify-start gap-1 cursor-pointer"
+        >
+          <Heart
+            :class="[
+              'w-5 h-5 transition',
+              publication?.is_favorited ? 'fill-red-500 text-red-500' : '',
+            ]"
+          />
+          <span class="text-sm">{{
+            publication?.favorites_count ?? publication?.favorites?.length
+          }}</span>
         </button>
       </li>
       <li>

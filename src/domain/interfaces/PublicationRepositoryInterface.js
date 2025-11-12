@@ -6,12 +6,12 @@ export class PublicationRepositoryInterface {
   }
 
   async getAll() {
-    throw new Error("Method not implemented");
+    throw new Error("Method[getAll] not implemented");
   }
   async getByProfile() {
-    throw new Error("Method not implemented");
+    throw new Error("Method[getByProfile] not implemented");
   }
   async create() {
-    throw new Error("Method not implemented");
+    throw new Error("Method[create] not implemented");
   }
 }
