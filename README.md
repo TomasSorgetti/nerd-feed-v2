@@ -21,7 +21,7 @@
   - [x] Private Message
   - [x] Login / Register
 - **Profile**
-  - [x] Edit (bug: doesn't update global user, need to logout to update)
+  - [x] Edit (bug: doesn't update global user)
   - [x] Upload avatar (delete image when upload, not implemented)
 - **Notifications**
   - [ ] List of notifications

@@ -1,4 +1,4 @@
-import { ref, watch, onMounted, onUnmounted } from "vue";
+import { ref, watch, onMounted, onUnmounted, nextTick } from "vue";
 import { ProfileService } from "../../application/profile/ProfileService.js";
 
 const profileService = new ProfileService();
@@ -27,7 +27,7 @@ export function usePublicProfile(usernameRef, currentUserRef) {
     if (unsubscribe) unsubscribe();
     if (!username) return;
 
-    unsubscribe = profileService.subscribe(username, (p) => {
+    unsubscribe = profileService.subscribe((p) => {
       profile.value = p;
     });
 
@@ -47,7 +47,17 @@ export function usePublicProfile(usernameRef, currentUserRef) {
         profileId,
         updatedData
       );
+
       profile.value = updatedProfile;
+
+      //! important -> sin esto no se actualiza el profile global
+      if (currentUserRef?.value?.id === updatedProfile.id) {
+        Object.assign(currentUserRef.value, updatedProfile);
+        if (currentUserRef.value.profile) {
+          Object.assign(currentUserRef.value.profile, updatedProfile);
+        }
+      }
+
       return updatedProfile;
     } catch (err) {
       error.value = err.message;
@@ -57,14 +67,18 @@ export function usePublicProfile(usernameRef, currentUserRef) {
     }
   };
 
-  const updateAvatar = async (profileId, blob) => {
+  const updateAvatar = async (profileId, file) => {
     try {
       loading.value = true;
-      const updatedProfile = await profileService.updateAvatar(profileId, blob);
+
+      const updatedProfile = await profileService.updateAvatar(profileId, file);
       profile.value = updatedProfile;
 
       if (currentUserRef?.value?.id === updatedProfile.id) {
         Object.assign(currentUserRef.value, updatedProfile);
+        if (currentUserRef.value.profile) {
+          Object.assign(currentUserRef.value.profile, updatedProfile);
+        }
       }
 
       return updatedProfile;

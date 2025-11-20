@@ -20,10 +20,19 @@ const openFilePicker = () => {
 };
 
 const submitPost = () => {
+  if (!content.value.trim()) return;
+
   emit("submit", {
     content: content.value,
     image: imageFile.value,
   });
+
+  content.value = "";
+  imageFile.value = null;
+  imagePreview.value = null;
+
+  const fileInput = document.getElementById("fileInput");
+  if (fileInput) fileInput.value = "";
 };
 </script>
 

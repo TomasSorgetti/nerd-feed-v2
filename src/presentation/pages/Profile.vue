@@ -45,6 +45,7 @@ const handleAvatarUpdate = async ({ blob, url }) => {
     console.error("Error updating avatar:", err);
   }
 };
+
 const handleUpdateProfile = async (formData) => {
   try {
     const updatedProfile = await updateProfile(profile.value.id, formData);
@@ -67,6 +68,7 @@ const handleUpdateProfile = async (formData) => {
     console.error(err);
   }
 };
+
 const toggleModal = () => (isOpenModal.value = !isOpenModal.value);
 </script>
 
