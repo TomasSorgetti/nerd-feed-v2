@@ -11,6 +11,9 @@ export class PublicationRepositoryInterface {
   async getByProfile() {
     throw new Error("Method[getByProfile] not implemented");
   }
+  async getById() {
+    throw new Error("Method[getById] not implemented");
+  }
   async create() {
     throw new Error("Method[create] not implemented");
   }

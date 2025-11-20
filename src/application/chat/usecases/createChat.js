@@ -8,9 +8,16 @@ export async function createChatUseCase(
 
   if (!isUUID) {
     const profile = await profileRepo.getByUsername(to);
-    if (!profile) throw new Error("Usuario destino no encontrado");
+    if (!profile) throw new Error("User not found");
     toId = profile.id;
   }
 
-  return await chatRepo.create({ from, to: toId });
+  if (toId === from) {
+    throw new Error("You cannot create a chat with yourself");
+  }
+
+  const { data, error } = await chatRepo.createChat({ from, to: toId });
+
+  if (error) throw new Error(error);
+  return data;
 }

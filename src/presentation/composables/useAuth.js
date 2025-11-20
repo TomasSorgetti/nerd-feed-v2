@@ -3,6 +3,9 @@ import { AuthService } from "../../application/auth/AuthService.js";
 
 const authService = new AuthService();
 
+/**
+ * todo -> Fix this. cuando se vence el token, se rompe la página
+ */
 export function useAuth() {
   const user = ref(authService.currentUser);
 

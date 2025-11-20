@@ -8,12 +8,19 @@ import ChatSidebar from "../components/chat/ChatSidebar.vue";
 import ChatHeader from "../components/chat/ChatHeader.vue";
 import ChatWindow from "../components/chat/ChatWindow.vue";
 import ChatInput from "../components/chat/ChatInput.vue";
+import { useMessages } from "../composables/useMessages";
 
 const route = useRoute();
 const { user } = useAuth();
-const { chats, createChat } = useChats(user?.value?.id);
+const { chats, createChat } = useChats(computed(() => user.value?.id));
 const queryUserId = computed(() => route.query.user || null);
 const activeChat = ref(null);
+
+const chatId = computed(() => activeChat.value?.id || null);
+const { messages, sendMessage } = useMessages(
+  chatId,
+  computed(() => user.value?.id)
+);
 
 watch(queryUserId, () => {
   activeChat.value = null;
@@ -21,27 +28,30 @@ watch(queryUserId, () => {
 
 /**
  * Estoy cansado jefe
+ * Todo -> tal vez esta logica la deberia hacer el createChat
  */
 watch(chats, async () => {
-  /**
-   * Todo -> tal vez esta logica la deberia hacer el createChat
-   */
-  if (queryUserId.value) {
-    const chatExists = chats.value.find(
-      (chat) => chat.username === queryUserId.value
-    );
-    if (chatExists) {
-      // si ya existe un chat con este usuario, se setea como active
-      activeChat.value = chatExists;
-    } else {
-      // si no existe un chat con este usuario, se crea uno localmente y se setea como active
-      const newLocalChat = await createChat(
-        { from: user.value.id, to: queryUserId.value },
-        { local: true }
-      );
-      activeChat.value = newLocalChat;
-    }
+  if (!queryUserId.value) return;
+
+  const chatExists = chats.value.find((chat) => {
+    console.log(chat);
+
+    return chat.profile?.username === queryUserId.value;
+  });
+
+  console.log("Chat exists: ", { chatExists });
+
+  if (chatExists) {
+    activeChat.value = chatExists;
+    return;
   }
+
+  const newLocalChat = await createChat(
+    { from: user.value.id, to: queryUserId.value },
+    { local: true }
+  );
+
+  activeChat.value = newLocalChat;
 });
 </script>
 
@@ -61,8 +71,13 @@ watch(chats, async () => {
           :activeChat="activeChat"
           :username="activeChat?.profile?.username"
         />
-        <ChatWindow :activeChat="activeChat" />
-        <ChatInput :activeChat="activeChat" />
+        <ChatWindow :activeChat="activeChat" :messages="messages" />
+        <ChatInput
+          :activeChat="activeChat"
+          :sendMessage="sendMessage"
+          :createChat="createChat"
+          :user="user"
+        />
       </div>
     </div>
   </div>

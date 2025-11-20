@@ -1,10 +1,10 @@
-<script setup lang="ts">
+<script setup>
 import Publications from "../components/shared/Publications.vue";
 import FeedBanner from "../components/feed/FeedBanner.vue";
 import FeedInput from "../components/feed/FeedInput.vue";
 import { useAuth } from "../composables/useAuth";
-import { useFeedPublications } from "../composables/useFeedPublications";
 import { useFavorite } from "../composables/useFavorite";
+import { usePublications } from "../composables/usePublications";
 
 const { user } = useAuth();
 /**
@@ -16,7 +16,10 @@ const {
   loading: loadingPublications,
   error: errorPublications,
   createPublication,
-} = useFeedPublications(user.value.id);
+} = usePublications({
+  type: "feed",
+  userId: user.value.id,
+});
 
 const { toggleFavorite } = useFavorite();
 

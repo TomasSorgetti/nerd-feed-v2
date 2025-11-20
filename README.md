@@ -1,5 +1,55 @@
 # Nerd Feed
 
+## Features
+
+- **Authentication**
+  - [x] Login
+  - [ ] Google Login
+  - **Register**
+    - [x] Check email before sign up
+    - [ ] Input validation
+  - [ ] Reset Password
+  - [ ] Forgot Password
+- **Pages**
+  - [x] Home (no footer)
+  - [ ] Features
+  - [ ] Blog
+  - [ ] Demo
+  - [x] Feed
+  - [x] Feed Post
+  - [x] Profile
+  - [x] Private Message
+- **Notifications**
+  - [ ] List of notifications
+  - [ ] Mark all as read
+  - [ ] Delete all notifications
+  - [ ] Delete notification
+- **Publications**
+  - [x] List of publications
+  - [x] Add publication
+  - [ ] Add image to publication
+  - [ ] Delete publication
+- **Favorites**
+  - [ ] List of favorites
+  - [x] Toogle favorite
+  - [x] Show favorite count
+  - [x] Show if post is favorited
+- **Comments**
+  - [ ] List of comments
+  - [ ] Add comment
+  - [ ] Delete comment
+  - [ ] Edit comment
+  - [ ] Reply comment
+  - [ ] Like comment
+  - [x] Show comment count
+  - [ ] Show if comment is liked
+- **Private Chat**
+  - [x] List of private chats
+  - [x] Add local chat before start messaging
+  - [ ] Add private chat
+  - [ ] Delete private chat
+  - [ ] Send message
+
 ```json
 /
 ├── public/

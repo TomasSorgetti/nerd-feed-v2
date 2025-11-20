@@ -3,6 +3,9 @@ import { PublicationService } from "../../application/publication/PublicationSer
 
 const publicationService = new PublicationService();
 
+/**
+ * Todo -> convert to observer
+ */
 export function useProfilePublications(profileId, userId) {
   const publications = ref([]);
   const loading = ref(true);

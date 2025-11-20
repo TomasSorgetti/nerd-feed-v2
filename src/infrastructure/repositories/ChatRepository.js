@@ -9,35 +9,45 @@ export class ChatRepository extends ChatRepositoryInterface {
       .or(`user1_id.eq.${userId},user2_id.eq.${userId}`)
       .order("created_at", { ascending: false });
 
+    console.log("get all chats", { data, error });
+
     if (error) throw error;
 
     return data;
   }
 
   //todo refactor create -> deberia hacer esto el usecase?
-  async create({ from, to }) {
+  async createChat({ from, to }) {
     const { data: existing, error: existingError } = await supabase
       .from("private_chats")
       .select("*")
       .or(
         `and(user1_id.eq.${from},user2_id.eq.${to}),and(user1_id.eq.${to},user2_id.eq.${from})`
-      );
+      )
+      .maybeSingle();
 
-    if (existingError) throw existingError;
+    console.log("Chat find: ", { existing, existingError });
 
-    if (existing?.length > 0) return existing[0];
+    if (existing) {
+      return { data: existing, error: null };
+    }
 
-    const { data, error } = await supabase
+    if (existingError) {
+      return { data: null, error: existingError };
+    }
+
+    const { data: createData, error: createError } = await supabase
       .from("private_chats")
       .insert({
         user1_id: from,
         user2_id: to,
+        last_message_id: null,
       })
-      .select("*")
+      .select()
       .single();
 
-    if (error) throw error;
+    console.log("create chat: ", { createData, createError });
 
-    return data;
+    return { data: createData, error: createError };
   }
 }

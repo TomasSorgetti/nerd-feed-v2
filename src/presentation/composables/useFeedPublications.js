@@ -4,6 +4,9 @@ import { PublicationService } from "../../application/publication/PublicationSer
 // todo => deberia hacer un solo composable (profile y feed) y me ahorro la repeticion e instancia de dos servicios
 const publicationService = new PublicationService();
 
+/**
+ * Todo -> convert to observer
+ */
 export function useFeedPublications(userId) {
   const publications = ref([]);
   const loading = ref(true);

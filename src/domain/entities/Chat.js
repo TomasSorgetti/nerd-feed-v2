@@ -8,6 +8,7 @@ export class Chat {
   #last_message;
   #profile;
   #messages;
+  #is_local;
   #created_at;
 
   constructor({
@@ -18,6 +19,7 @@ export class Chat {
     last_message = null,
     profile = null,
     messages = [],
+    is_local = false,
     created_at = new Date().toISOString(),
   }) {
     if (!user1_id) throw new Error("User1 ID is required");
@@ -30,6 +32,7 @@ export class Chat {
     this.#last_message = last_message;
     this.#profile = profile;
     this.#messages = messages;
+    this.#is_local = is_local;
     this.#created_at = created_at;
   }
 
@@ -75,6 +78,7 @@ export class Chat {
       created_at: this.#created_at,
       profile: this.#profile,
       messages: this.#messages,
+      is_local: this.#is_local,
     };
   }
 }

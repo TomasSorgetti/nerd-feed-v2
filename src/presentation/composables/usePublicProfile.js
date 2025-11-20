@@ -1,22 +1,22 @@
-import { ref, onMounted } from "vue";
+import { ref, watch, onMounted, onUnmounted } from "vue";
 import { ProfileService } from "../../application/profile/ProfileService.js";
 
 const profileService = new ProfileService();
 
-export function usePublicProfile(username) {
+// todo -> refactor to observer
+export function usePublicProfile(usernameRef) {
   const profile = ref(null);
   const loading = ref(true);
   const error = ref(null);
 
-  const loadProfile = async () => {
-    if (!username) {
-      error.value = "No username provided";
-      loading.value = false;
-      return;
-    }
+  let unsubscribe = null;
 
+  const loadProfile = async (username) => {
+    if (!username) return;
+    loading.value = true;
+    error.value = null;
     try {
-      profile.value = await profileService.getPublicProfile(username);
+      await profileService.getPublicProfile(username);
     } catch (err) {
       error.value = err.message;
     } finally {
@@ -24,8 +24,34 @@ export function usePublicProfile(username) {
     }
   };
 
-  onMounted(loadProfile);
+  const subscribeToProfile = (username) => {
+    if (unsubscribe) unsubscribe();
+    if (!username) return;
 
-  //? Reload para volver a cargar el perfil serpía necesario?
+    unsubscribe = profileService.subscribe(username, (p) => {
+      profile.value = p;
+    });
+
+    const cached = profileService.getCached(username);
+    if (cached) {
+      profile.value = cached;
+      loading.value = false;
+    } else {
+      loadProfile(username);
+    }
+  };
+
+  onMounted(() => {
+    subscribeToProfile(usernameRef.value);
+  });
+
+  watch(usernameRef, (newUsername) => {
+    subscribeToProfile(newUsername);
+  });
+
+  onUnmounted(() => {
+    if (unsubscribe) unsubscribe();
+  });
+
   return { profile, loading, error, reload: loadProfile };
 }

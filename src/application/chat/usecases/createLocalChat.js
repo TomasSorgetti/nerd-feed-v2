@@ -9,5 +9,6 @@ export async function createLocalChatUseCase({ from, to }, { profileRepo }) {
     user1_id: from,
     user2_id: to,
     profile,
+    is_local: true, 
   }).toObject();
 }

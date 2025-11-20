@@ -1,24 +1,20 @@
-// useChats.js
-import { ref, onMounted } from "vue";
+import { ref, watch, onMounted, onUnmounted } from "vue";
 import { ChatService } from "../../application/chat/ChatService";
 
 const chatService = new ChatService();
 
-export function useChats(userId) {
-  const chats = ref([]);
+export function useChats(userIdRef) {
+  const chats = ref(chatService.currentChats);
   const loading = ref(true);
   const error = ref(null);
 
-  const loadChats = async () => {
-    if (!userId) {
-      error.value = "No userId provided";
-      loading.value = false;
-      return;
-    }
+  let unsubscribe = null;
 
+  const loadChats = async (userId) => {
+    if (!userId) return;
+    loading.value = true;
     try {
-      const data = await chatService.getChats(userId);
-      chats.value = data;
+      await chatService.getChats(userId);
     } catch (err) {
       error.value = err.message;
     } finally {
@@ -27,24 +23,32 @@ export function useChats(userId) {
   };
 
   const createChat = async ({ from, to }, { local = false } = {}) => {
-    if (local) {
-      const localChat = await chatService.createLocalChat(from, to);
-      chats.value.unshift(localChat);
-      return localChat;
+    try {
+      return local
+        ? await chatService.createLocalChat(from, to)
+        : await chatService.createChat(from, to);
+    } catch (err) {
+      error.value = err.message;
+      return null;
     }
-
-    // const newChat = await chatService.createChat(from, to);
-    // chats.value = chats.value.map((c) =>
-    //   c.isTemp && c.users.includes(from) && c.users.includes(to) ? newChat : c
-    // );
-    // if (!chats.value.find((c) => c.id === newChat.id)) {
-    //   chats.value.unshift(newChat);
-    // }
-    // return newChat;
   };
 
   onMounted(() => {
-    loadChats();
+    unsubscribe = chatService.subscribe((newChats) => {
+      chats.value = newChats;
+    });
+
+    if (userIdRef.value) {
+      loadChats(userIdRef.value);
+    }
+  });
+
+  watch(userIdRef, (newId) => {
+    if (newId) loadChats(newId);
+  });
+
+  onUnmounted(() => {
+    if (unsubscribe) unsubscribe();
   });
 
   return { chats, loading, error, reload: loadChats, createChat };

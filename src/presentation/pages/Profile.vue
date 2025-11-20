@@ -7,22 +7,28 @@ import { useRoute } from "vue-router";
 import { useAuth } from "../composables/useAuth";
 import { usePublicProfile } from "../composables/usePublicProfile";
 import Publications from "../components/shared/Publications.vue";
-import { useProfilePublications } from "../composables/useProfilePublications";
 import SettingsModal from "../components/profile/SettingsModal.vue";
 import ProfileHeader from "../components/profile/ProfileHeader.vue";
+import { usePublications } from "../composables/usePublications";
 
 const route = useRoute();
 const isOpenModal = ref(false);
 
 const { user } = useAuth();
-const { profile, loading, error } = usePublicProfile(route.params.username);
+const { profile, loading, error } = usePublicProfile(
+  computed(() => route.params.username)
+);
 
 const profileId = computed(() => profile.value?.id);
 const {
   publications,
   error: errorPublications,
   loading: loadingPublications,
-} = useProfilePublications(profileId, user.value.id);
+} = usePublications({
+  type: "profile",
+  profileId,
+  userId: user.value.id,
+});
 
 function handleAvatarUpdate({ blob, url }) {
   // profile.value.avatar = url;
@@ -30,6 +36,7 @@ function handleAvatarUpdate({ blob, url }) {
   //   profile.value.avatar = newUrl;
   // });
 }
+// todo -> handle favorite
 
 const toggleModal = () => (isOpenModal.value = !isOpenModal.value);
 </script>

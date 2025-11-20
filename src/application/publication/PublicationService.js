@@ -1,8 +1,12 @@
 import { PublicationRepository } from "../../infrastructure/repositories/PublicationRepository.js";
 import { createPublication } from "./usecases/createPublication.js";
 import { getAllPublications } from "./usecases/getAllPublications.js";
+import { getPublicationsById } from "./usecases/getPublicationsById.js";
 import { getPublicationsByProfile } from "./usecases/getPublicationsByProfile.js";
 
+/**
+ * Todo -> convert to observer
+ */
 export class PublicationService {
   constructor() {
     this.publicationRepo = new PublicationRepository();
@@ -17,6 +21,15 @@ export class PublicationService {
   async getByProfile(profileId, userId) {
     return await getPublicationsByProfile(
       { profileId, userId },
+      {
+        publicationRepo: this.publicationRepo,
+      }
+    );
+  }
+
+  async getById(publicationId, userId = null) {
+    return await getPublicationsById(
+      { publicationId, userId },
       {
         publicationRepo: this.publicationRepo,
       }

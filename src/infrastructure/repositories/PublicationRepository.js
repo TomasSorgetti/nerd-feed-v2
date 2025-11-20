@@ -21,6 +21,17 @@ export class PublicationRepository extends PublicationRepositoryInterface {
       .order("created_at", { ascending: false });
   }
 
+  async getById(publicationId) {
+    return await supabase
+      .from("posts")
+      .select(
+        "*, profile:profile(id, username, tag, avatar), comments ( id ),favorites ( user_id )"
+      )
+      .eq("id", publicationId)
+      .order("created_at", { ascending: false })
+      .single();
+  }
+
   async create(publication) {
     // todo -> en vez de select * se puede pedir el id, content, image, etc y evitar devolver un array
     return await supabase.from("posts").insert(publication).select("*");
