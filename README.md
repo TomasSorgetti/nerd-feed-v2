@@ -35,8 +35,8 @@
   - [x] Show favorite count
   - [x] Show if post is favorited
 - **Comments**
-  - [ ] List of comments
-  - [ ] Add comment
+  - [x] List of comments
+  - [x] Add comment
   - [ ] Delete comment
   - [ ] Edit comment
   - [ ] Reply comment
