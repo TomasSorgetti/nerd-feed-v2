@@ -20,7 +20,9 @@
   - [x] Profile
   - [x] Private Message
   - [x] Login / Register
-  - [x] Profile (bug: user "asdasd" doesn't work)
+- **Profile**
+  - [x] Edit (bug: doesn't update global user, need to logout to update)
+  - [x] Upload avatar (delete image when upload, not implemented)
 - **Notifications**
   - [ ] List of notifications
   - [ ] Mark all as read
@@ -51,6 +53,7 @@
   - [ ] Add private chat
   - [ ] Delete private chat
   - [ ] Send message
+- [x] RLS
 
 ```json
 /
@@ -89,4 +92,10 @@
 ├── index.html
 ├── package.json
 └── ...rest
+```
+
+```bash
+#env
+VITE_SUPABASE_URL=https://zphfngbkvqiatklcdqzx.supabase.co
+VITE_SUPABASE_KEY=sb_publishable_bjFRPiKBK6RQn74N_kIHtQ_421kwXvd
 ```

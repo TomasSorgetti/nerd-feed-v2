@@ -1,75 +1,84 @@
 <script setup>
-import { ref } from "vue";
+import { ref, watch, computed } from "vue";
 import MainButton from "../shared/buttons/MainButton.vue";
 
 const emit = defineEmits(["close", "submit"]);
+const props = defineProps({
+  profile: {
+    type: Object,
+    required: true,
+  },
+});
 
 const form = ref({
   username: "",
   tag: "",
   bio: "",
 });
+
+watch(
+  () => props.profile,
+  (newProfile) => {
+    if (newProfile) {
+      form.value.username = newProfile.username || "";
+      form.value.tag = newProfile.tag || "";
+      form.value.bio = newProfile.bio || "";
+    }
+  },
+  { immediate: true }
+);
+
+const handleSubmit = () => {
+  emit("submit", { ...form.value });
+};
 </script>
 
 <template>
   <div
-    @close="emit('close')"
-    class="fixed inset-0 z-100 w-full h-screen bg-black/30"
+    @click.self="emit('close')"
+    class="fixed inset-0 z-100 w-full h-screen bg-black/30 flex justify-end"
   >
-    <div class="relative w-full h-full">
-      <aside
-        class="absolute top-0 right-0 w-full h-full max-w-md bg-background shadow-2xl border border-secondary/30 rounded-l-2xl flex flex-col p-8"
-      >
-        <span class="text-2xl font-semibold text-text-heading"
-          >Update profile</span
-        >
-        <form @submit.prevent="emit('submit')" class="mt-6">
-          <!-- Username -->
-          <div class="w-full flex flex-col items-start mt-4">
-            <label for="username" class="text-text-heading font-semibold"
-              >Username:</label
-            >
-            <input
-              type="text"
-              name="username"
-              id="username"
-              v-model="username"
-              class="border border-secondary/30 w-full h-10 rounded"
-            />
-          </div>
+    <aside
+      class="relative w-full max-w-md h-full bg-background shadow-2xl border border-secondary/30 rounded-l-2xl flex flex-col p-8"
+    >
+      <span class="text-2xl font-semibold text-text-heading">
+        Update profile
+      </span>
 
-          <!-- Tag -->
-          <div class="w-full flex flex-col items-start mt-4">
-            <label for="tag" class="text-text-heading font-semibold"
-              >Tag:</label
-            >
-            <input
-              type="text"
-              name="tag"
-              id="tag"
-              v-model="tag"
-              class="border border-secondary/30 w-full h-10 rounded"
-            />
-          </div>
+      <form @submit.prevent="handleSubmit" class="mt-6 flex flex-col gap-4">
+        <div class="flex flex-col items-start">
+          <label for="username" class="text-text-heading font-semibold"
+            >Username:</label
+          >
+          <input
+            type="text"
+            id="username"
+            v-model="form.username"
+            class="border border-secondary/30 w-full h-10 rounded px-2"
+          />
+        </div>
 
-          <!-- Bio -->
-          <div class="w-full flex flex-col items-start mt-4">
-            <label for="bio" class="text-text-heading font-semibold"
-              >Bio:</label
-            >
-            <textarea
-              name="bio"
-              id="bio"
-              v-model="bio"
-              class="border border-secondary/30 w-full h-30 resize-none rounded"
-            ></textarea>
-          </div>
+        <div class="flex flex-col items-start">
+          <label for="tag" class="text-text-heading font-semibold">Tag:</label>
+          <input
+            type="text"
+            id="tag"
+            v-model="form.tag"
+            class="border border-secondary/30 w-full h-10 rounded px-2"
+          />
+        </div>
 
-          <div class="mt-10 w-full">
-            <MainButton type="submit">Update</MainButton>
-          </div>
-        </form>
-      </aside>
-    </div>
+        <div class="flex flex-col items-start">
+          <label for="bio" class="text-text-heading font-semibold">Bio:</label>
+          <textarea
+            id="bio"
+            v-model="form.bio"
+            class="border border-secondary/30 w-full h-32 resize-none rounded p-2"
+          ></textarea>
+        </div>
+
+        <MainButton type="submit" class="mt-4">Update</MainButton>
+      </form>
+    </aside>
   </div>
 </template>

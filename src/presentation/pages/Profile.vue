@@ -1,9 +1,6 @@
 <script setup>
-/**
- * Todo ==> cuando se cambia el username, no se actualiza la info del usuario
- */
 import { ref, computed } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useAuth } from "../composables/useAuth";
 import { usePublicProfile } from "../composables/usePublicProfile";
 import Publications from "../components/shared/Publications.vue";
@@ -11,13 +8,16 @@ import SettingsModal from "../components/profile/SettingsModal.vue";
 import ProfileHeader from "../components/profile/ProfileHeader.vue";
 import { usePublications } from "../composables/usePublications";
 
+const router = useRouter();
 const route = useRoute();
 const isOpenModal = ref(false);
 
 const { user } = useAuth();
-const { profile, loading, error } = usePublicProfile(
-  computed(() => route.params.username)
-);
+const { profile, loading, error, updateProfile, updateAvatar } =
+  usePublicProfile(
+    computed(() => route.params.username),
+    user
+  );
 
 const profileId = computed(() => profile.value?.id);
 const {
@@ -30,14 +30,43 @@ const {
   userId: user.value.id,
 });
 
-function handleAvatarUpdate({ blob, url }) {
-  // profile.value.avatar = url;
-  // updateAvatar(blob).then((newUrl) => {
-  //   profile.value.avatar = newUrl;
-  // });
-}
-// todo -> handle favorite
+const handleAvatarUpdate = async ({ blob, url }) => {
+  try {
+    const oldAvatar = profile.value.avatar;
 
+    const updatedProfile = await updateAvatar(profile.value.id, blob);
+
+    profile.value.avatar = updatedProfile.avatar;
+
+    if (user.value.id === updatedProfile.id) {
+      Object.assign(user.value, updatedProfile);
+    }
+  } catch (err) {
+    console.error("Error updating avatar:", err);
+  }
+};
+const handleUpdateProfile = async (formData) => {
+  try {
+    const updatedProfile = await updateProfile(profile.value.id, formData);
+
+    profile.value = updatedProfile;
+
+    if (user.value.id === updatedProfile.id) {
+      Object.assign(user.value, updatedProfile);
+    }
+
+    if (route.params.username !== updatedProfile.username) {
+      router.push({
+        name: "Profile",
+        params: { username: updatedProfile.username },
+      });
+    }
+
+    isOpenModal.value = false;
+  } catch (err) {
+    console.error(err);
+  }
+};
 const toggleModal = () => (isOpenModal.value = !isOpenModal.value);
 </script>
 
@@ -62,6 +91,11 @@ const toggleModal = () => (isOpenModal.value = !isOpenModal.value);
       />
     </section>
 
-    <SettingsModal v-if="isOpenModal" @close="toggleModal" />
+    <SettingsModal
+      v-if="isOpenModal"
+      :profile="profile"
+      @close="toggleModal"
+      @submit="handleUpdateProfile"
+    />
   </div>
 </template>

@@ -3,4 +3,11 @@ export class ImageRepositoryInterface {
     throw new Error("Method not implemented");
   }
   // todo rest
+  async delete(path) {
+    throw new Error("Method not implemented");
+  }
+
+  getPathFromUrl(url) {
+    throw new Error("Method not implemented");
+  }
 }

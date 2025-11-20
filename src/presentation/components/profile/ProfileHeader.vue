@@ -13,9 +13,7 @@ const props = defineProps({
 
 const emit = defineEmits(["toggleModal", "update:avatar"]);
 
-const isOwnProfile = computed(
-  () => props.user?.profile?.username === props.profile?.username
-);
+const isOwnProfile = computed(() => props.user?.id === props.profile?.id);
 
 const showCropper = ref(false);
 const tempSrc = ref("");
@@ -57,8 +55,6 @@ function confirmCrop() {
 
 <template>
   <section class="flex items-start justify-start gap-16">
-    <h1 class="sr-only">User Profile Page {{ profile?.username }}</h1>
-
     <Avatar
       :src="profile?.avatar || '/default-avatar.png'"
       size="3xl"
@@ -75,25 +71,22 @@ function confirmCrop() {
         {{ profile?.bio || "This user does not have a bio yet." }}
       </p>
 
-      <div class="flex items-center gap-2 mt-4">
-        <template v-if="!isOwnProfile">
+      <div class="flex items-center gap-2 mt-4" v-if="profile && user">
+        <template v-if="isOwnProfile">
+          <MainButton @click="emit('toggleModal')">
+            <Settings class="mr-2 w-4 h-4" /> Settings
+          </MainButton>
+        </template>
+        <template v-else>
           <MainButton variant="tertiary">Follow</MainButton>
           <MainButton :to="`/chat?user=${profile?.id}`"
             >Send Message</MainButton
           >
         </template>
-
-        <template v-else>
-          <MainButton @click="emit('toggleModal')">
-            <Settings class="mr-2 w-4 h-4" />
-            Settings
-          </MainButton>
-        </template>
       </div>
     </div>
   </section>
 
-  <!-- ---------- Modal de recorte ---------- -->
   <teleport to="body">
     <div
       v-if="showCropper"
@@ -101,18 +94,16 @@ function confirmCrop() {
     >
       <div class="bg-white rounded-lg p-6 max-w-lg w-full">
         <h3 class="text-lg font-medium mb-4">Recorta tu avatar</h3>
-
         <VueCropper
           ref="cropperRef"
           :src="tempSrc"
           :aspect-ratio="1"
-          view-mode="1"
+          :view-mode="1"
           drag-mode="move"
           :auto-crop-area="0.8"
           :background="false"
           class="h-80"
         />
-
         <div class="mt-4 flex justify-end gap-2">
           <button @click="showCropper = false" class="px-4 py-2 border rounded">
             Cancelar

@@ -22,4 +22,16 @@ export class ImageRepository extends ImageRepositoryInterface {
 
     return data.publicUrl;
   }
+
+  async delete(path) {
+    const { error } = await supabase.storage.from("posts").remove([path]);
+    if (error) throw error;
+  }
+
+  // todo -> not avatars
+  getPathFromUrl(url) {
+    const parts = url.split("/avatars/");
+    if (parts.length < 2) throw new Error("Invalid URL");
+    return `avatars/${parts[1]}`;
+  }
 }

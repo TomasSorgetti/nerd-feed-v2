@@ -35,4 +35,13 @@ export class ProfileRepository extends ProfileRepositoryInterface {
       .eq("username", username)
       .single();
   }
+
+  async updateProfile(profileId, updatedData) {
+    return await supabase
+      .from("profile")
+      .update(updatedData)
+      .eq("id", profileId)
+      .select()
+      .single();
+  }
 }

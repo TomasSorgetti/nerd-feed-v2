@@ -11,7 +11,7 @@ const props = defineProps({
 });
 
 const commonClasses =
-  "relative z-10 font-medium rounded-lg cursor-pointer shadow flex items-center justfy-center";
+  "relative z-10 text-center font-medium rounded-lg cursor-pointer shadow flex items-center justfy-center";
 
 const variantClasses = computed(() => {
   return {

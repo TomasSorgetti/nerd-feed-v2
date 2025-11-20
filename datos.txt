@@ -1,0 +1,9 @@
+Carrera: Diseño y Programación Web
+Materia: Clientes Web Mobile
+Cuatrimestre: 4
+Año: 2025
+Turno: Noche
+Comisión: DWN4AV
+Apellido y nombre: Sorgetti Tomás
+Docente: Santiago Gallino
+Caracter de entrega: 2do parcial

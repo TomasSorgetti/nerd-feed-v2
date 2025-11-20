@@ -3,8 +3,7 @@ import { ProfileService } from "../../application/profile/ProfileService.js";
 
 const profileService = new ProfileService();
 
-// todo -> refactor to observer
-export function usePublicProfile(usernameRef) {
+export function usePublicProfile(usernameRef, currentUserRef) {
   const profile = ref(null);
   const loading = ref(true);
   const error = ref(null);
@@ -16,7 +15,7 @@ export function usePublicProfile(usernameRef) {
     loading.value = true;
     error.value = null;
     try {
-      await profileService.getPublicProfile(username);
+      profile.value = await profileService.getPublicProfile(username);
     } catch (err) {
       error.value = err.message;
     } finally {
@@ -41,6 +40,42 @@ export function usePublicProfile(usernameRef) {
     }
   };
 
+  const updateProfile = async (profileId, updatedData) => {
+    try {
+      loading.value = true;
+      const updatedProfile = await profileService.updateProfile(
+        profileId,
+        updatedData
+      );
+      profile.value = updatedProfile;
+      return updatedProfile;
+    } catch (err) {
+      error.value = err.message;
+      throw err;
+    } finally {
+      loading.value = false;
+    }
+  };
+
+  const updateAvatar = async (profileId, blob) => {
+    try {
+      loading.value = true;
+      const updatedProfile = await profileService.updateAvatar(profileId, blob);
+      profile.value = updatedProfile;
+
+      if (currentUserRef?.value?.id === updatedProfile.id) {
+        Object.assign(currentUserRef.value, updatedProfile);
+      }
+
+      return updatedProfile;
+    } catch (err) {
+      error.value = err.message;
+      throw err;
+    } finally {
+      loading.value = false;
+    }
+  };
+
   onMounted(() => {
     subscribeToProfile(usernameRef.value);
   });
@@ -53,5 +88,12 @@ export function usePublicProfile(usernameRef) {
     if (unsubscribe) unsubscribe();
   });
 
-  return { profile, loading, error, reload: loadProfile };
+  return {
+    profile,
+    loading,
+    error,
+    reload: loadProfile,
+    updateProfile,
+    updateAvatar,
+  };
 }
