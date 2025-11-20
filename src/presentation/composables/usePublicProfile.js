@@ -9,7 +9,7 @@ export function usePublicProfile(usernameRef) {
   const loading = ref(true);
   const error = ref(null);
 
-  let unsubscribe = null;
+  let unsubscribe = () => {};
 
   const loadProfile = async (username) => {
     if (!username) return;

@@ -1,10 +1,12 @@
-import { ref, watch, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { PublicationService } from "../../application/publication/PublicationService.js";
 
 const service = new PublicationService();
 
+const feedPublications = ref([]);
+
 export function usePublications(options) {
-  const publications = ref([]);
+  const publications = options.type === "feed" ? feedPublications : ref([]);
   const publication = ref(null);
   const loading = ref(false);
   const error = ref(null);
@@ -16,9 +18,9 @@ export function usePublications(options) {
     try {
       switch (options.type) {
         case "feed":
-          publications.value = await service.getAll(options.userId);
+          const data = await service.getAll(options.userId);
+          publications.value = data;
           break;
-
         case "profile":
           if (!options.profileId.value) return;
           publications.value = await service.getByProfile(
@@ -26,7 +28,6 @@ export function usePublications(options) {
             options.userId
           );
           break;
-
         case "detail":
           if (!options.publicationId.value) return;
           publication.value = await service.getById(
@@ -44,7 +45,6 @@ export function usePublications(options) {
 
   const createPublication = async (data) => {
     if (options.type !== "feed") return;
-
     loading.value = true;
     try {
       const newPub = await service.create(data);
@@ -56,17 +56,11 @@ export function usePublications(options) {
     }
   };
 
-  if (options.type === "feed") {
-    onMounted(load);
-  }
-
-  if (options.type === "profile") {
+  if (options.type === "feed") onMounted(load);
+  if (options.type === "profile")
     watch(options.profileId, load, { immediate: true });
-  }
-
-  if (options.type === "detail") {
+  if (options.type === "detail")
     watch(options.publicationId, load, { immediate: true });
-  }
 
   return {
     publications,

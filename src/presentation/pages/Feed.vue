@@ -7,30 +7,23 @@ import { useFavorite } from "../composables/useFavorite";
 import { usePublications } from "../composables/usePublications";
 
 const { user } = useAuth();
-/**
- * todo -> fix loading all components
- * todo -> deberia crear un loading local unicamente para el create publication y usar el loading global para cuando cargan
- */
+
 const {
   publications,
   loading: loadingPublications,
   error: errorPublications,
   createPublication,
-} = usePublications({
-  type: "feed",
-  userId: user.value.id,
-});
+} = usePublications({ type: "feed", userId: user.value.id });
 
 const { toggleFavorite } = useFavorite();
 
 const handleCreatePublication = async ({ content, image }) => {
-  createPublication({ content, image, user_id: user.value.id });
+  await createPublication({ content, image, user_id: user.value.id });
 };
 
 const handleToggleFavorite = async (publication) => {
   if (!user.value) return;
   await toggleFavorite(user.value.id, publication.id, publication.is_favorited);
-
   publication.is_favorited = !publication.is_favorited;
   publication.favorites_count += publication.is_favorited ? 1 : -1;
 };

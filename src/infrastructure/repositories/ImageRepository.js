@@ -2,6 +2,7 @@ import { ImageRepositoryInterface } from "../../domain/interfaces/ImageRepositor
 import { supabase } from "../supabase/client.js";
 
 // deberia ir en storage?
+// todo -> rename bucket to images
 export class ImageRepository extends ImageRepositoryInterface {
   async upload(file, folder = "publications") {
     const fileName = Date.now() + "-" + file.name;

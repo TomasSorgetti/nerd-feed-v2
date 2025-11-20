@@ -19,15 +19,17 @@
   - [x] Feed Post
   - [x] Profile
   - [x] Private Message
+  - [x] Login / Register
+  - [x] Profile (bug: user "asdasd" doesn't work)
 - **Notifications**
   - [ ] List of notifications
   - [ ] Mark all as read
   - [ ] Delete all notifications
   - [ ] Delete notification
 - **Publications**
-  - [x] List of publications
+  - [x] List of publications (bug: do not show publications when go back, need to reload.)
   - [x] Add publication
-  - [ ] Add image to publication
+  - [x] Add image to publication
   - [ ] Delete publication
 - **Favorites**
   - [ ] List of favorites
