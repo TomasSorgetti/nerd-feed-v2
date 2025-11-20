@@ -36,6 +36,9 @@ const emit = defineEmits(["toggle-favorite"]);
       <p class="text-text">
         {{ publication?.content }}
       </p>
+      <div v-if="publication.image">
+        <img :src="publication.image" alt="" />
+      </div>
       <small>{{ publication?.created_at }}</small>
     </div>
 

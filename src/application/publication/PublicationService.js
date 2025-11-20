@@ -1,4 +1,5 @@
 import { PublicationRepository } from "../../infrastructure/repositories/PublicationRepository.js";
+import { ImageRepository } from "../../infrastructure/repositories/ImageRepository.js";
 import { createPublication } from "./usecases/createPublication.js";
 import { getAllPublications } from "./usecases/getAllPublications.js";
 import { getPublicationsById } from "./usecases/getPublicationsById.js";
@@ -10,6 +11,7 @@ import { getPublicationsByProfile } from "./usecases/getPublicationsByProfile.js
 export class PublicationService {
   constructor() {
     this.publicationRepo = new PublicationRepository();
+    this.imageRepo = new ImageRepository();
   }
 
   async getAll(userId) {
@@ -41,6 +43,7 @@ export class PublicationService {
       { content, image, user_id },
       {
         publicationRepo: this.publicationRepo,
+        imageRepo: this.imageRepo,
       }
     );
   }

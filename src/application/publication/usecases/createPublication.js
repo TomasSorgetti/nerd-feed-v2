@@ -2,11 +2,17 @@ import { Publication } from "../../../domain/entities/Publication";
 
 export async function createPublication(
   { content, image, user_id },
-  { publicationRepo }
+  { publicationRepo, imageRepo }
 ) {
+  let imageUrl = null;
+
+  if (image) {
+    imageUrl = await imageRepo.upload(image, "publications");
+  }
+
   const newPublication = new Publication({
     content,
-    image,
+    image: imageUrl,
     user_id,
   });
 

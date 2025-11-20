@@ -36,7 +36,7 @@
   - [x] Show if post is favorited
 - **Comments**
   - [x] List of comments
-  - [x] Add comment
+  - [x] Add comment (bug: doesn't show profile when pushing new comment, if reloads, it works)
   - [ ] Delete comment
   - [ ] Edit comment
   - [ ] Reply comment
